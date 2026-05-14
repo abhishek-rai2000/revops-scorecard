@@ -1,123 +1,35 @@
 # RevOps Health Scorecard
 
-A free 5-minute diagnostic that scores B2B SaaS operations across 6 weighted pillars and returns a personalised report with prioritised fixes. Built as a lead-gen tool for AI-augmented operations consulting.
+A free 5-minute diagnostic that scores B2B SaaS revenue operations across six weighted pillars and returns a personalised report with prioritised fixes.
 
-Built by Abhishek Rai · [Portfolio](https://abhishek-rai-1.netlify.app)
+**Live:** [revops-scorecard.vercel.app](https://revops-scorecard.vercel.app)
 
----
-
-## Stack
-
-- Next.js 14 (App Router) + TypeScript
-- Tailwind CSS with a custom warm/editorial design system
-- Recharts for the radar chart
-- Pure JS scoring engine — zero API calls during the assessment
-- Supabase + Resend will be wired in Day 4 (currently stubs)
+Built by [Abhishek Rai](https://abhishek-rai-1.netlify.app) — Sales Ops & Automation Lead specialising in B2B Telecom and SaaS operations.
 
 ---
 
-## Quick start
+## Why this exists
 
-```bash
-npm install
-npm run dev
-```
+Most B2B SaaS ops teams diagnose problems too late. The 2025 industry benchmarks tell a hard story — median gross revenue retention sits at 90–92 percent, while the top quartile achieves 95 percent or higher. The difference is rarely effort. It's visibility — whether ops sees problems coming, or only finds out at renewal time.
 
-Visit http://localhost:3000 to see the landing page. Take the assessment at /scorecard.
+This scorecard measures the systems behind that visibility across six pillars: churn signal tracking, SLA discipline, process documentation, automation maturity, data trust, and renewal motion. Each pillar is weighted by its actual impact on revenue. The output is a tier, a pillar-by-pillar breakdown, and three highest-leverage fixes with specific first steps.
 
-To deploy to Vercel:
+## Who it's for
 
-```bash
-npx vercel
-```
+B2B SaaS operations leaders at companies between 20 and 500 employees, Series A through Series C. Most useful for Heads of Ops, RevOps managers, and Customer Success leaders who suspect their ops is leaking revenue but can't pinpoint where.
 
-That's it. No env vars needed for the v1 (no-API) version. When you wire Supabase + Resend in Day 4, copy `.env.local.example` to `.env.local` and fill in the values.
+## How it works
 
----
+The diagnostic asks 18 questions across the six pillars, plus 4 contextual questions about company stage and size. The scoring engine weights answers against 2025 benchmark data (sources include High Alpha, Benchmarkit, SaaS Capital, and Userlens). The result maps to one of four tiers — Critical, At Risk, Functional, or Mature — with tier-appropriate recommendations for each pillar.
 
-## Project structure
+The full assessment takes under 5 minutes. The recommendations are written from four years of operational experience in North American B2B Telecom and SaaS, including running churn-mitigation analytics for enterprise AT&T accounts.
 
-```
-revops-scorecard/
-├── app/
-│   ├── layout.tsx              Root layout with metadata
-│   ├── page.tsx                Landing page (editorial hero)
-│   ├── globals.css             Tailwind + custom typography
-│   ├── scorecard/
-│   │   └── page.tsx            Assessment flow shell
-│   ├── results/
-│   │   └── page.tsx            Results display shell
-│   └── api/
-│       └── submit/
-│           └── route.ts        Submission endpoint (stub for Day 4)
-├── components/
-│   ├── AssessmentFlow.tsx      Main multi-step flow with state
-│   ├── ContextStep.tsx         Context question UI
-│   ├── QuestionCard.tsx        Single + multi-select question UI
-│   ├── EmailGate.tsx           Lead capture before results
-│   ├── ResultsView.tsx         Score + radar + priorities
-│   ├── PillarRadar.tsx         Recharts radar chart
-│   ├── PriorityCard.tsx        Top-3 priority recommendation card
-│   └── ProgressBar.tsx         Linear progress indicator
-├── content/
-│   └── scorecard.json          ALL questions, weights, recommendations
-├── lib/
-│   ├── types.ts                TypeScript types
-│   ├── scoring.ts              Pure scoring engine
-│   └── content.ts              Content loader
-├── public/                     Static assets
-├── package.json
-├── tsconfig.json
-├── tailwind.config.ts          Custom tokens (parchment, ink, ember, moss)
-├── next.config.js
-├── postcss.config.js
-├── .env.local.example
-└── .gitignore
-```
+## Built with
+
+Next.js 14, TypeScript, Tailwind CSS. Editorial design system with custom typography. Recharts for the radar chart on the results page. Deployed on Vercel.
 
 ---
 
-## Editing the content
+If you're a B2B SaaS ops leader who took the scorecard and wants to discuss your specific results, book a free 30-minute walkthrough at [abhishek.k0420@gmail.com](mailto:abhishek.k0420@gmail.com).
 
-All scorecard content lives in `content/scorecard.json`. Editing this file changes the scorecard everywhere — questions, weights, recommendations, benchmark text. No code changes needed.
-
-To change a recommendation: navigate to `pillars[id].recommendations[tier]` and edit. To change the weight of a pillar: edit `pillars[id].weight` (must sum to 1.0 across all pillars). To change tier boundaries: edit the `tiers` array.
-
----
-
-## Scoring math
-
-Each question scores 0, 3, 7, or 10 points (single-select) or 0, 4, 7, or 10 points (multi-select).
-
-Each pillar has 3 questions = max 30 raw points per pillar.
-
-Pillar percentage score = `(rawPoints / 30) × 100` → 0-100.
-
-Final score is a weighted average:
-
-```
-Final = (Churn% × 0.25)
-      + (SLA% × 0.15)
-      + (Process% × 0.15)
-      + (Automation% × 0.15)
-      + (Data% × 0.15)
-      + (Renewal% × 0.15)
-```
-
-Tier mapping:
-
-| Score   | Tier        |
-|---------|-------------|
-| 0–40    | Critical    |
-| 41–60   | At risk     |
-| 61–80   | Functional  |
-| 81–100  | Mature      |
-
-The "top 3 priorities" are the three lowest-scoring pillars.
-
----
-
-
-## License
-
-MIT.
+© Abhishek Rai. All rights reserved.
