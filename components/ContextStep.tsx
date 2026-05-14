@@ -26,8 +26,9 @@ export function ContextStep({ question, value, onChange }: Props) {
               className={[
                 "text-left px-5 py-4 rounded-md border transition-all duration-200",
                 "hover:border-ink-900/40 hover:bg-parchment-50",
+                "active:scale-[0.99] active:bg-ember-50/50",
                 isSelected
-                  ? "border-ember-600 bg-ember-50 ring-1 ring-ember-600/20"
+                  ? "border-ember-600 bg-ember-50 ring-1 ring-ember-600/20 shadow-[0_0_0_3px_rgba(194,65,12,0.06)]"
                   : "border-ink-900/15 bg-parchment-50",
               ].join(" ")}
             >
@@ -41,3 +42,5 @@ export function ContextStep({ question, value, onChange }: Props) {
     </div>
   );
 }
+
+

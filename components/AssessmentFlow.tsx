@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { scorecard } from "@/lib/content";
@@ -11,13 +11,14 @@ import { EmailGate, type LeadInfo } from "./EmailGate";
 import type {
   ContextResponses,
   QuestionResponses,
-  Question,
 } from "@/lib/types";
 
 type Step =
   | { kind: "context"; index: number }
   | { kind: "question"; pillarIndex: number; questionIndex: number }
   | { kind: "email" };
+
+const AUTO_ADVANCE_DELAY_MS = 450;
 
 export function AssessmentFlow() {
   const router = useRouter();
@@ -41,6 +42,15 @@ export function AssessmentFlow() {
   const currentStep = allSteps[stepIndex];
 
   const totalProgressSteps = allSteps.length - 1;
+  const autoAdvanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceTimer.current) {
+        clearTimeout(autoAdvanceTimer.current);
+      }
+    };
+  }, []);
 
   const isCurrentAnswered = useMemo(() => {
     if (!currentStep) return false;
@@ -59,17 +69,32 @@ export function AssessmentFlow() {
   }, [currentStep, contextResponses, questionResponses]);
 
   const goNext = () => {
+    if (autoAdvanceTimer.current) {
+      clearTimeout(autoAdvanceTimer.current);
+      autoAdvanceTimer.current = null;
+    }
     if (stepIndex < allSteps.length - 1) {
       setStepIndex(stepIndex + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const goBack = () => {
+    if (autoAdvanceTimer.current) {
+      clearTimeout(autoAdvanceTimer.current);
+      autoAdvanceTimer.current = null;
+    }
     if (stepIndex > 0) {
       setStepIndex(stepIndex - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
+  };
+
+  const scheduleAutoAdvance = () => {
+    if (autoAdvanceTimer.current) {
+      clearTimeout(autoAdvanceTimer.current);
+    }
+    autoAdvanceTimer.current = setTimeout(() => {
+      goNext();
+    }, AUTO_ADVANCE_DELAY_MS);
   };
 
   const handleEmailSubmit = (lead: LeadInfo) => {
@@ -81,16 +106,16 @@ export function AssessmentFlow() {
     };
     sessionStorage.setItem("scorecard_submission", JSON.stringify(payload));
 
+    router.push("/results");
+
     fetch("/api/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      keepalive: true,
     }).catch(() => {
-      // Silent failure — results still load from sessionStorage.
-      // Server-side persistence is best-effort in v1.
+      // Silent: results page already loads from sessionStorage.
     });
-
-    router.push("/results");
   };
 
   return (
@@ -125,12 +150,13 @@ export function AssessmentFlow() {
               key={`context-${currentStep.index}`}
               question={scorecard.context[currentStep.index]}
               value={contextResponses[scorecard.context[currentStep.index].id]}
-              onChange={(value) =>
+              onChange={(value) => {
                 setContextResponses({
                   ...contextResponses,
                   [scorecard.context[currentStep.index].id]: value,
-                })
-              }
+                });
+                scheduleAutoAdvance();
+              }}
             />
           )}
 
@@ -140,9 +166,12 @@ export function AssessmentFlow() {
               pillarIndex={currentStep.pillarIndex}
               questionIndex={currentStep.questionIndex}
               responses={questionResponses}
-              onChange={(qid, value) =>
-                setQuestionResponses({ ...questionResponses, [qid]: value })
-              }
+              onChange={(qid, value, autoAdvance) => {
+                setQuestionResponses({ ...questionResponses, [qid]: value });
+                if (autoAdvance) {
+                  scheduleAutoAdvance();
+                }
+              }}
             />
           )}
 
@@ -156,7 +185,7 @@ export function AssessmentFlow() {
             <button
               onClick={goBack}
               disabled={stepIndex === 0}
-              className="btn-ghost disabled:opacity-30 disabled:cursor-not-allowed"
+              className="btn-ghost disabled:opacity-25 disabled:cursor-not-allowed"
             >
               <span aria-hidden>←</span> Back
             </button>
@@ -164,7 +193,7 @@ export function AssessmentFlow() {
             <button
               onClick={goNext}
               disabled={!isCurrentAnswered}
-              className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-ink-900"
+              className="btn-primary disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-ink-900"
             >
               Continue
               <span aria-hidden>→</span>
@@ -185,7 +214,7 @@ function RenderQuestion({
   pillarIndex: number;
   questionIndex: number;
   responses: QuestionResponses;
-  onChange: (qid: string, value: string | string[]) => void;
+  onChange: (qid: string, value: string | string[], autoAdvance: boolean) => void;
 }) {
   const pillar = scorecard.pillars[pillarIndex];
   const question = pillar.questions[questionIndex];
@@ -197,7 +226,12 @@ function RenderQuestion({
       pillarNumber={pillarIndex + 1}
       questionInPillar={questionIndex + 1}
       value={responses[question.id]}
-      onChange={(value) => onChange(question.id, value)}
+      onChange={(value) => {
+        const shouldAutoAdvance = question.type === "single_select";
+        onChange(question.id, value, shouldAutoAdvance);
+      }}
     />
   );
 }
+
+

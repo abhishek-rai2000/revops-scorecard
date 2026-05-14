@@ -21,11 +21,11 @@ export function QuestionCard({
 }: Props) {
   return (
     <div className="animate-fade-up">
-      <div className="flex items-baseline gap-3 mb-4">
+      <div className="flex items-baseline gap-3 mb-4 flex-wrap">
         <p className="text-eyebrow">
           Pillar {pillarNumber} · {pillarName}
         </p>
-        <span className="text-ink-400 text-xs">
+        <span className="text-ink-600 text-xs font-medium tracking-wide">
           Q{questionInPillar} of 3
         </span>
       </div>
@@ -79,22 +79,23 @@ function SingleSelect({
             className={[
               "w-full text-left px-5 py-4 rounded-md border transition-all duration-200 group",
               "hover:border-ink-900/40 hover:bg-parchment-50",
+              "active:scale-[0.995] active:bg-ember-50/50",
               isSelected
-                ? "border-ember-600 bg-ember-50 ring-1 ring-ember-600/20"
+                ? "border-ember-600 bg-ember-50 ring-1 ring-ember-600/20 shadow-[0_0_0_3px_rgba(194,65,12,0.06)]"
                 : "border-ink-900/15 bg-parchment-50",
             ].join(" ")}
           >
             <div className="flex items-start gap-4">
               <span
                 className={[
-                  "mt-1 w-4 h-4 rounded-full border-2 flex-shrink-0 transition-colors",
+                  "mt-1 w-4 h-4 rounded-full border-2 flex-shrink-0 transition-all duration-150",
                   isSelected
                     ? "border-ember-600 bg-ember-600"
-                    : "border-ink-400 bg-transparent group-hover:border-ink-600",
+                    : "border-ink-400 bg-transparent group-hover:border-ink-600 group-active:scale-90",
                 ].join(" ")}
               >
                 {isSelected && (
-                  <span className="block w-1.5 h-1.5 rounded-full bg-parchment-50 m-auto mt-[3px]" />
+                  <span className="block w-1.5 h-1.5 rounded-full bg-parchment-50 m-auto mt-[3px] animate-fade-in" />
                 )}
               </span>
               <span
@@ -141,18 +142,19 @@ function MultiSelect({
             className={[
               "w-full text-left px-5 py-4 rounded-md border transition-all duration-200 group",
               "hover:border-ink-900/40 hover:bg-parchment-50",
+              "active:scale-[0.995]",
               isSelected
-                ? "border-ember-600 bg-ember-50 ring-1 ring-ember-600/20"
+                ? "border-ember-600 bg-ember-50 ring-1 ring-ember-600/20 shadow-[0_0_0_3px_rgba(194,65,12,0.06)]"
                 : "border-ink-900/15 bg-parchment-50",
             ].join(" ")}
           >
             <div className="flex items-start gap-4">
               <span
                 className={[
-                  "mt-1 w-4 h-4 rounded-sm border-2 flex-shrink-0 flex items-center justify-center transition-colors",
+                  "mt-1 w-4 h-4 rounded-sm border-2 flex-shrink-0 flex items-center justify-center transition-all duration-150",
                   isSelected
                     ? "border-ember-600 bg-ember-600"
-                    : "border-ink-400 bg-transparent group-hover:border-ink-600",
+                    : "border-ink-400 bg-transparent group-hover:border-ink-600 group-active:scale-90",
                 ].join(" ")}
               >
                 {isSelected && (
@@ -162,6 +164,7 @@ function MultiSelect({
                     viewBox="0 0 10 10"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    className="animate-fade-in"
                   >
                     <path
                       d="M2 5L4 7L8 3"
@@ -188,3 +191,5 @@ function MultiSelect({
     </div>
   );
 }
+
+

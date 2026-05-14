@@ -17,6 +17,7 @@ export function EmailGate({ onSubmit }: Props) {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ export function EmailGate({ onSubmit }: Props) {
       return;
     }
     setError(null);
+    setSubmitting(true);
     onSubmit({ name: name.trim(), email: email.trim(), role: role.trim() });
   };
 
@@ -40,12 +42,12 @@ export function EmailGate({ onSubmit }: Props) {
         Where should we send your full report?
       </h2>
       <p className="text-ink-600 mb-10 leading-relaxed">
-        You'll see your tier and pillar breakdown immediately. The full PDF
-        report — with prioritised fixes — arrives in your inbox within a few
-        minutes. We don't share email addresses, ever.
+        You'll see your full results on the next screen — score, pillar breakdown,
+        and top three priorities. We use your email to follow up only if you
+        request the walkthrough at the end.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <Field
           label="Name"
           value={name}
@@ -73,13 +75,17 @@ export function EmailGate({ onSubmit }: Props) {
           <p className="text-sm text-ember-700 -mt-2">{error}</p>
         )}
 
-        <button type="submit" className="btn-primary w-full justify-center">
-          See my score
-          <span aria-hidden>→</span>
+        <button
+          type="submit"
+          disabled={submitting}
+          className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-wait"
+        >
+          {submitting ? "Calculating…" : "See my score"}
+          {!submitting && <span aria-hidden>→</span>}
         </button>
 
         <p className="text-caption text-center pt-2">
-          By submitting, you agree to receive your report by email.
+          Your information stays private. We don't share email addresses.
         </p>
       </form>
     </div>
@@ -103,15 +109,17 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-eyebrow block mb-2">{label}</span>
+      <span className="text-eyebrow block mb-2.5">{label}</span>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         autoComplete={autoComplete}
-        className="w-full px-4 py-3.5 bg-parchment-50 border border-ink-900/15 rounded-md text-ink-900 placeholder:text-ink-400 focus:border-ember-600 focus:outline-none transition-colors"
+        className="w-full px-4 py-4 bg-parchment-50 border border-ink-900/15 rounded-md text-ink-900 placeholder:text-ink-400 text-[15px] focus:border-ember-600 focus:outline-none focus:ring-2 focus:ring-ember-600/15 transition-all"
       />
     </label>
   );
 }
+
+
