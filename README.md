@@ -117,7 +117,6 @@ The "top 3 priorities" are the three lowest-scoring pillars.
 
 ---
 
----
 
 ## License
 
