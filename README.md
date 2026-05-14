@@ -117,27 +117,6 @@ The "top 3 priorities" are the three lowest-scoring pillars.
 
 ---
 
-## Build sequence
-
-- Day 1: Content layer ✓
-- Day 2: Scaffold + scoring engine ✓ (you are here)
-- Day 3: UI polish, mobile testing, accessibility pass
-- Day 4: Wire Supabase (lead storage) + Resend (email PDF) + react-pdf (PDF generation)
-- Day 5: Deploy to Vercel, custom domain, social share images, LinkedIn launch
-
----
-
-## Brand and design
-
-The visual aesthetic is editorial — closer to a serious research publication than a SaaS dashboard. Warm parchment background, deep ember accent for the call-to-action color, serif display (Fraunces) paired with clean sans (General Sans) for body. The restraint signals "this is serious work" before the user reads a word.
-
-When extending the UI, lean into:
-- Generous whitespace
-- Tabular numbers for any score display
-- Single accent color (ember-600) used sparingly
-- Editorial section dividers and eyebrow labels
-- Avoid: gradients, drop shadows, emoji, generic AI aesthetics
-
 ---
 
 ## License
