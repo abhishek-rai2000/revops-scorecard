@@ -132,8 +132,20 @@ export function AssessmentFlow() {
       <div className="max-w-3xl mx-auto px-6 lg:px-12 pt-6 pb-20">
         <div className="mb-12">
           <ProgressBar
-            current={Math.min(stepIndex + 1, totalProgressSteps)}
-            total={totalProgressSteps}
+            current={
+              currentStep?.kind === "context"
+                ? currentStep.index + 1
+                : currentStep?.kind === "question"
+                ? currentStep.pillarIndex * 3 + currentStep.questionIndex + 1
+                : scorecard.meta.questionCount
+            }
+            total={
+              currentStep?.kind === "context"
+                ? scorecard.context.length
+                : currentStep?.kind === "question"
+                ? scorecard.meta.questionCount
+                : scorecard.meta.questionCount
+            }
             label={
               currentStep?.kind === "context"
                 ? "Context"
