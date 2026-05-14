@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "General Sans", system-ui, -apple-system, sans-serif;
+    color: theme("colors.ink.900");
+    background: theme("colors.parchment.100");
+    font-feature-settings: "ss01", "ss02";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    background: theme("colors.parchment.100");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Fraunces", ui-serif, Georgia, serif;
+    font-feature-settings: "ss01", "ss03";
+    color: theme("colors.ink.900");
+  }
+
+  ::selection {
+    background: theme("colors.ember.600");
+    color: theme("colors.parchment.50");
+  }
+
+  *:focus-visible {
+    outline: 2px solid theme("colors.ember.600");
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-ink-900 text-parchment-50 font-medium text-sm tracking-wide rounded-md transition-all duration-200;
+    @apply hover:bg-ember-600 hover:scale-[0.99] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent text-ink-900 font-medium text-sm tracking-wide border border-ink-900/20 rounded-md transition-all duration-200;
+    @apply hover:border-ink-900/60 hover:bg-parchment-200/50;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-1.5 text-sm text-ink-600 font-medium transition-colors;
+    @apply hover:text-ember-600;
+  }
+
+  .surface {
+    @apply bg-parchment-50 border border-ink-900/[0.08] rounded-lg;
+  }
+
+  .surface-elevated {
+    @apply bg-parchment-50 border border-ink-900/[0.12] rounded-lg;
+  }
+
+  .editorial-rule {
+    @apply h-px bg-ink-900/10;
+  }
+
+  .text-eyebrow {
+    @apply text-xs uppercase tracking-[0.18em] font-medium text-ember-600;
+  }
+
+  .text-caption {
+    @apply text-xs text-ink-500 leading-relaxed;
+  }
+
+  .ornament-dot::before {
+    content: "·";
+    @apply mx-2 text-ink-400;
+  }
+}

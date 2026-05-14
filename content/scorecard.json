@@ -1,0 +1,550 @@
+{
+  "version": "1.0.0",
+  "meta": {
+    "title": "RevOps Health Scorecard",
+    "subtitle": "A 5-minute diagnostic for B2B SaaS operations",
+    "estimatedMinutes": 5,
+    "questionCount": 18,
+    "pillarCount": 6
+  },
+  "tiers": [
+    {
+      "id": "critical",
+      "label": "Critical",
+      "min": 0,
+      "max": 40,
+      "framing": "You scored in the bottom quartile of B2B SaaS ops teams we've benchmarked. The good news: every pillar in this tier has a defined fix that pays back within 90 days."
+    },
+    {
+      "id": "at_risk",
+      "label": "At risk",
+      "min": 41,
+      "max": 60,
+      "framing": "You scored in the lower-middle range — better than 30 to 40 percent of B2B SaaS teams. The gaps are specific and fixable. Companies that act on a scorecard like this typically move up one tier within 6 months."
+    },
+    {
+      "id": "functional",
+      "label": "Functional",
+      "min": 61,
+      "max": 80,
+      "framing": "You scored in the upper-middle range — better than 60 to 70 percent of B2B SaaS teams. You're past the rough edges. The work now is compounding the gains in 2 to 3 specific pillars."
+    },
+    {
+      "id": "mature",
+      "label": "Mature",
+      "min": 81,
+      "max": 100,
+      "framing": "You scored in the top quintile of B2B SaaS ops teams. Your work now is optimisation and scale, not foundation. The recommendations focus on what separates top quintile from top decile."
+    }
+  ],
+  "context": [
+    {
+      "id": "stage",
+      "label": "What stage is your company at?",
+      "options": [
+        { "id": "seed", "label": "Pre-seed or seed" },
+        { "id": "series_a", "label": "Series A" },
+        { "id": "series_b", "label": "Series B" },
+        { "id": "series_c", "label": "Series C or later" },
+        { "id": "bootstrapped", "label": "Bootstrapped or profitable" },
+        { "id": "public", "label": "Public" }
+      ]
+    },
+    {
+      "id": "team_size",
+      "label": "How big is the team?",
+      "options": [
+        { "id": "under_20", "label": "Under 20" },
+        { "id": "20_50", "label": "20 to 50" },
+        { "id": "50_200", "label": "50 to 200" },
+        { "id": "200_500", "label": "200 to 500" },
+        { "id": "500_plus", "label": "500 or more" }
+      ]
+    },
+    {
+      "id": "arr",
+      "label": "What's your annual recurring revenue band?",
+      "options": [
+        { "id": "under_1m", "label": "Under $1M" },
+        { "id": "1_5m", "label": "$1M to $5M" },
+        { "id": "5_20m", "label": "$5M to $20M" },
+        { "id": "20_50m", "label": "$20M to $50M" },
+        { "id": "50m_plus", "label": "$50M or more" }
+      ]
+    },
+    {
+      "id": "motion",
+      "label": "What's your primary go-to-market motion?",
+      "options": [
+        { "id": "plg", "label": "Product-led growth" },
+        { "id": "sales_led", "label": "Sales-led" },
+        { "id": "hybrid", "label": "Hybrid (PLG plus sales-assist)" },
+        { "id": "channel", "label": "Channel or partner-led" }
+      ]
+    }
+  ],
+  "pillars": [
+    {
+      "id": "churn",
+      "name": "Churn signal visibility",
+      "shortName": "Churn",
+      "weight": 0.25,
+      "description": "Whether you can see churn coming 60 to 90 days before it happens. Of all six pillars, this is the one with the clearest revenue impact. The 2025 benchmarks show median GRR for B2B SaaS at 90 to 92 percent — meaning 8 to 10 percent of customers leave every year. Top quartile companies achieve 95 percent or higher. The difference is almost entirely about visibility.",
+      "questions": [
+        {
+          "id": "q1",
+          "type": "single_select",
+          "text": "How far in advance can you reliably identify which customers are likely to churn?",
+          "options": [
+            { "id": "a", "label": "We don't predict it — we find out at renewal time or when they tell us", "points": 0 },
+            { "id": "b", "label": "We sometimes notice 30 days out, when usage drops or tickets spike", "points": 3 },
+            { "id": "c", "label": "We have signals 60 to 90 days out for most accounts", "points": 7 },
+            { "id": "d", "label": "We have a defined health score updated weekly, with 90+ day visibility", "points": 10 }
+          ]
+        },
+        {
+          "id": "q2",
+          "type": "multi_select",
+          "text": "Which of these churn signals do you actively track and review?",
+          "options": [
+            { "id": "usage", "label": "Login frequency or product usage drop" },
+            { "id": "support", "label": "Support ticket volume or sentiment change" },
+            { "id": "nps", "label": "NPS or CSAT decline" },
+            { "id": "champion", "label": "Champion or stakeholder departure" },
+            { "id": "billing", "label": "Payment delays or billing disputes" },
+            { "id": "qbr", "label": "Engagement with QBRs or scheduled check-ins" }
+          ],
+          "scoring": [
+            { "minSelected": 0, "maxSelected": 1, "points": 0 },
+            { "minSelected": 2, "maxSelected": 3, "points": 4 },
+            { "minSelected": 4, "maxSelected": 5, "points": 7 },
+            { "minSelected": 6, "maxSelected": 6, "points": 10 }
+          ]
+        },
+        {
+          "id": "q3",
+          "type": "single_select",
+          "text": "When an account shows churn risk, what happens next?",
+          "options": [
+            { "id": "a", "label": "Nothing formal — CSMs handle it ad hoc", "points": 0 },
+            { "id": "b", "label": "A CSM does a check-in call", "points": 3 },
+            { "id": "c", "label": "We have a defined save play with steps and a stakeholder map", "points": 7 },
+            { "id": "d", "label": "Save play is automated to trigger, tracked through to outcome", "points": 10 }
+          ]
+        }
+      ],
+      "recommendations": {
+        "critical": {
+          "title": "Build the first version of an account health score this quarter",
+          "body": "You're operating without visibility into who's at risk, which means you're losing accounts you could have saved. Start simple: pick three signals (usage trend, support ticket count, time since last QBR) and score each account weekly. Even a basic 3-signal score, reviewed in a Monday CS standup, will surface 60 to 80 percent of preventable churn 30+ days earlier than you see it now.",
+          "firstStep": "Export your top 50 accounts and rate each one Red, Yellow, or Green based on those three signals. Schedule a 30-minute review with the CS team Friday.",
+          "impact": "Recovering 2 to 3 accounts per quarter from preventable churn typically equals $50K to $150K in protected ARR for a $5M to $20M ARR company.",
+          "timeToImplement": "2 to 4 weeks for v1"
+        },
+        "at_risk": {
+          "title": "Move from anecdotal signals to a defined health score with weekly review",
+          "body": "You're seeing some signals but not catching them consistently. The next step is formalising what 'at risk' means — write down the score thresholds, who owns intervention at each tier, and what the playbook is. The discipline of weekly review is what separates teams that protect ARR from teams that hope.",
+          "firstStep": "Document your current implicit health-scoring rules. Then formalise them with explicit weights. Pilot for 30 days, refine based on what flagged correctly versus what missed.",
+          "impact": "Companies moving from ad hoc to systematised health scoring typically lift GRR by 2 to 4 percentage points within 6 months.",
+          "timeToImplement": "4 to 6 weeks"
+        },
+        "functional": {
+          "title": "Add leading indicators beyond usage",
+          "body": "You have the basics. The next layer is what most teams miss: stakeholder change tracking (champion leaving is a top churn predictor in B2B SaaS), engagement with QBRs, and contract complexity signals. Adding two more leading indicators to your health score typically lifts predictive accuracy by 15 to 25 percent.",
+          "firstStep": "For your bottom 10 health-scored accounts, dig into the qualitative signals you're not currently tracking. Identify which 1 or 2 you should formalise.",
+          "impact": "Improved early detection typically protects an additional 1 to 2 percentage points of GRR.",
+          "timeToImplement": "3 to 6 weeks"
+        },
+        "mature": {
+          "title": "Productise your save plays and measure save rate as a metric",
+          "body": "At your maturity level, the work is to treat save plays as a product — versioned, A/B tested, optimised. Track save rate by play, by segment, by CSM. The teams in the top decile of GRR (97 percent or higher) treat their save motion the same way sales treats their deal motion.",
+          "firstStep": "Pick your two most-used save plays. Define what 'success' looks like for each. Start tracking save rate by play next month.",
+          "impact": "Top-decile GRR companies see 1 to 3 additional NRR points compared to top quartile.",
+          "timeToImplement": "Ongoing"
+        }
+      }
+    },
+    {
+      "id": "sla",
+      "name": "SLA and ops discipline",
+      "shortName": "SLA",
+      "weight": 0.15,
+      "description": "Whether your response and resolution times are measured and enforced. SLAs are the floor of operational trust. When customers know issues get handled, they extend grace during the inevitable hard moments. When they don't, every incident becomes a credibility test.",
+      "questions": [
+        {
+          "id": "q4",
+          "type": "single_select",
+          "text": "What percentage of customer issues are resolved within your stated SLA?",
+          "options": [
+            { "id": "a", "label": "We don't have stated SLAs", "points": 0 },
+            { "id": "b", "label": "We have SLAs but don't actively measure compliance", "points": 3 },
+            { "id": "c", "label": "70 to 90 percent compliance, measured monthly", "points": 6 },
+            { "id": "d", "label": "95 percent or higher compliance, measured weekly with breach RCAs", "points": 10 }
+          ]
+        },
+        {
+          "id": "q5",
+          "type": "single_select",
+          "text": "When an issue gets escalated, the path is...",
+          "options": [
+            { "id": "a", "label": "Whoever's available picks it up", "points": 0 },
+            { "id": "b", "label": "Escalates to a team lead, ad hoc", "points": 3 },
+            { "id": "c", "label": "Documented escalation matrix with response time targets per severity", "points": 7 },
+            { "id": "d", "label": "Documented escalation, automated routing, post-incident review for sev-1s", "points": 10 }
+          ]
+        },
+        {
+          "id": "q6",
+          "type": "single_select",
+          "text": "How quickly can your team produce a customer-facing status update during an incident?",
+          "options": [
+            { "id": "a", "label": "We figure it out during the incident", "points": 0 },
+            { "id": "b", "label": "2+ hours, manually drafted", "points": 3 },
+            { "id": "c", "label": "Under 1 hour with templates", "points": 6 },
+            { "id": "d", "label": "Under 30 minutes with templates and automated stakeholder notification", "points": 10 }
+          ]
+        }
+      ],
+      "recommendations": {
+        "critical": {
+          "title": "Ship a one-page SLA document this month",
+          "body": "You have no measured response or resolution targets, which means there's nothing to enforce. Start with three tiers (Sev-1: 30-minute response and 4-hour resolution; Sev-2: 2-hour and 1-business-day; Sev-3: 1-business-day and 5-business-day). Publish it. Track compliance weekly. The act of measuring will improve compliance by 20 to 30 percent before you change anything else.",
+          "firstStep": "Pull your last 30 customer issues. Categorise them retroactively and measure response times. The gap between current performance and the SLA you'd want to publish is your starting baseline.",
+          "impact": "Teams with measured SLAs see 30 to 50 percent fewer escalations to leadership over 6 months.",
+          "timeToImplement": "2 to 3 weeks"
+        },
+        "at_risk": {
+          "title": "Add severity-based escalation routing",
+          "body": "SLAs without an escalation matrix mean every breach becomes a fire. The next layer is documenting who gets paged for what — by issue severity, by hour of day, by customer tier. A one-page escalation matrix on the team wiki, reviewed quarterly, beats a Confluence labyrinth nobody reads.",
+          "firstStep": "Draft a 3-tier severity matrix with response time targets. Assign a primary and backup owner for each tier. Share with the team this Friday.",
+          "impact": "Reduces incident-to-resolution time by 20 to 30 percent within the first quarter.",
+          "timeToImplement": "1 to 2 weeks"
+        },
+        "functional": {
+          "title": "Automate the SLA timer and breach alerts",
+          "body": "You're measuring. The next step is removing human latency from the measurement itself. Most ticket systems can fire a webhook 75 percent of the way through SLA — connect that to a Slack alert with the ticket owner and one fallback. Breach rates typically drop 40 to 60 percent the first month after this is wired up.",
+          "firstStep": "In your ticketing tool, set up 'approaching SLA' alerts at 75 percent time-elapsed for sev-1 and sev-2. Route to a channel with the assigned owner and their backup.",
+          "impact": "40 to 60 percent fewer SLA breaches within 30 days.",
+          "timeToImplement": "1 day"
+        },
+        "mature": {
+          "title": "Run quarterly SLA reviews with customers",
+          "body": "You're at a level where the next gain is making your operational rigour visible to the customer. Share your SLA performance in QBRs. Companies that show their compliance numbers to customers see measurably higher renewal rates because they've turned ops discipline into a trust signal.",
+          "firstStep": "Pick your top 5 accounts. Add a 1-slide SLA performance summary to their next QBR. Measure renewal sentiment versus accounts without it.",
+          "impact": "Top-decile companies report 2 to 4 percentage point lifts in renewal rates from this practice.",
+          "timeToImplement": "1 quarter to test"
+        }
+      }
+    },
+    {
+      "id": "process",
+      "name": "Process documentation",
+      "shortName": "Process",
+      "weight": 0.15,
+      "description": "Whether your most senior ops people could leave tomorrow without taking critical knowledge with them. Documentation is what separates orgs that compound knowledge from orgs that lose it every time someone leaves.",
+      "questions": [
+        {
+          "id": "q7",
+          "type": "single_select",
+          "text": "If your most senior ops person left tomorrow, how much of their work could a replacement run from documentation alone?",
+          "options": [
+            { "id": "a", "label": "Less than 25 percent — a lot lives in their head", "points": 0 },
+            { "id": "b", "label": "25 to 50 percent — basics documented, edge cases aren't", "points": 3 },
+            { "id": "c", "label": "50 to 75 percent — most of it, but some tribal knowledge remains", "points": 7 },
+            { "id": "d", "label": "75 percent or more — documentation-first culture, runbooks for everything", "points": 10 }
+          ]
+        },
+        {
+          "id": "q8",
+          "type": "multi_select",
+          "text": "Which of these have current, used SOPs?",
+          "options": [
+            { "id": "onboarding", "label": "New customer onboarding" },
+            { "id": "o2c", "label": "Order-to-cash workflow" },
+            { "id": "escalation", "label": "Escalation handling" },
+            { "id": "renewal", "label": "Contract renewal process" },
+            { "id": "handoffs", "label": "Internal handoffs (sales to CS, CS to support)" },
+            { "id": "data_hygiene", "label": "Data hygiene and CRM updates" }
+          ],
+          "scoring": [
+            { "minSelected": 0, "maxSelected": 1, "points": 0 },
+            { "minSelected": 2, "maxSelected": 3, "points": 4 },
+            { "minSelected": 4, "maxSelected": 5, "points": 7 },
+            { "minSelected": 6, "maxSelected": 6, "points": 10 }
+          ]
+        },
+        {
+          "id": "q9",
+          "type": "single_select",
+          "text": "How often are your SOPs reviewed and updated?",
+          "options": [
+            { "id": "a", "label": "Whenever something breaks", "points": 0 },
+            { "id": "b", "label": "Annually or less frequently", "points": 3 },
+            { "id": "c", "label": "Quarterly, with named owners", "points": 7 },
+            { "id": "d", "label": "After every major incident, plus scheduled quarterly review", "points": 10 }
+          ]
+        }
+      ],
+      "recommendations": {
+        "critical": {
+          "title": "Pick the one process that breaks most often. Document it this week.",
+          "body": "Trying to document everything at once is the failure mode. Start with the workflow that causes the most fire-drills — usually order-to-cash or escalation handling — and write a SIPOC-mapped SOP. One process, one week, then move to the next. After 8 weeks you have your eight most painful processes covered. That's 80 percent of operational risk.",
+          "firstStep": "Identify the process that's caused the most rework or escalation in the last 30 days. Block 90 minutes Friday to write its SOP. Use a SIPOC table at the top, then step-by-step procedure with decision points, then escalation matrix.",
+          "impact": "Teams that document their top 5 processes see 40 to 60 percent fewer 'how do I' escalations to senior staff within a quarter.",
+          "timeToImplement": "1 process per week, 8 weeks total for top processes"
+        },
+        "at_risk": {
+          "title": "Move from 'documentation exists' to 'documentation is used'",
+          "body": "Most ops teams have SOPs that nobody opens. The fix isn't more docs — it's putting them where work happens. Link the relevant SOP from the ticket type. Embed it in the onboarding checklist. Reference it by URL in Slack when someone asks. Documentation that gets opened gets updated; documentation that doesn't, decays.",
+          "firstStep": "Pick your 3 most-used SOPs. Find every place a new team member would look for that information. Add the link there.",
+          "impact": "Documentation usage typically increases 3 to 5x with this single change.",
+          "timeToImplement": "1 to 2 weeks"
+        },
+        "functional": {
+          "title": "Add named SOP owners and a quarterly review cadence",
+          "body": "SOPs without owners decay silently. Assign each major SOP to one person, with calendar invites for quarterly review. The act of opening it for review forces the small fixes that prevent the big drift.",
+          "firstStep": "List your top 10 SOPs. Assign each one an owner. Send calendar invites for quarterly review (90, 180, 270, 360 days out).",
+          "impact": "Documentation accuracy stays above 90 percent versus the typical 40 to 60 percent decay over 12 months.",
+          "timeToImplement": "1 day to set up, ongoing"
+        },
+        "mature": {
+          "title": "Convert your top 3 SOPs into automation specs",
+          "body": "When documentation is mature, the highest-value next step is using it as a blueprint for automation. Any SOP that's been stable for two quarters and runs more than 10 times per week is an automation candidate. Your SOPs are the spec; the automation is the implementation.",
+          "firstStep": "Identify your 3 most-run SOPs that have been stable for 6+ months. For each, sketch what 'fully automated' would look like.",
+          "impact": "Each automated SOP typically saves 5 to 15 hours per week.",
+          "timeToImplement": "1 to 4 weeks per SOP"
+        }
+      }
+    },
+    {
+      "id": "automation",
+      "name": "Automation maturity",
+      "shortName": "Automation",
+      "weight": 0.15,
+      "description": "How much manual work could be automated but isn't. The 2025 SaaS benchmarks show ARR per FTE rising sharply — driven by automation. Manual work isn't free; it costs payroll plus error rate plus the opportunity cost of what those people could be doing instead.",
+      "questions": [
+        {
+          "id": "q10",
+          "type": "single_select",
+          "text": "Estimate the hours per week your ops team spends on tasks that could be automated but aren't.",
+          "options": [
+            { "id": "a", "label": "30 or more hours per week", "points": 0 },
+            { "id": "b", "label": "15 to 30 hours per week", "points": 3 },
+            { "id": "c", "label": "5 to 15 hours per week", "points": 6 },
+            { "id": "d", "label": "Under 5 hours — we automate aggressively", "points": 10 }
+          ]
+        },
+        {
+          "id": "q11",
+          "type": "multi_select",
+          "text": "Which of these are automated end-to-end (no manual steps)?",
+          "options": [
+            { "id": "lead_sync", "label": "Lead-to-CRM sync" },
+            { "id": "order", "label": "Order validation and processing" },
+            { "id": "onboarding_email", "label": "Customer onboarding email sequence" },
+            { "id": "renewal_alerts", "label": "Renewal reminders to CSMs" },
+            { "id": "health_score", "label": "Account health scoring" },
+            { "id": "reporting", "label": "Internal reporting dashboards" }
+          ],
+          "scoring": [
+            { "minSelected": 0, "maxSelected": 1, "points": 0 },
+            { "minSelected": 2, "maxSelected": 3, "points": 4 },
+            { "minSelected": 4, "maxSelected": 5, "points": 7 },
+            { "minSelected": 6, "maxSelected": 6, "points": 10 }
+          ]
+        },
+        {
+          "id": "q12",
+          "type": "single_select",
+          "text": "When a new tool is added to your stack, how quickly does it integrate with existing systems?",
+          "options": [
+            { "id": "a", "label": "It doesn't really integrate — tools live in silos", "points": 0 },
+            { "id": "b", "label": "Manual exports and imports between systems", "points": 3 },
+            { "id": "c", "label": "API integrations done case-by-case, takes weeks", "points": 6 },
+            { "id": "d", "label": "Integration is part of tool adoption — connected within days", "points": 10 }
+          ]
+        }
+      ],
+      "recommendations": {
+        "critical": {
+          "title": "Pick the single most repetitive manual workflow and automate it this month",
+          "body": "You're losing 30+ hours per week to manual work that compounds into real money. The fastest win is usually order validation, lead routing, or renewal alerts — workflows where the rules are clear and the volume is high. Use n8n, Make, or Zapier for the first build; you don't need custom code for 80 percent of automation work.",
+          "firstStep": "List the top 5 most-repeated manual tasks the team did last week. Pick the one with clearest rules. Build it in n8n in a single afternoon.",
+          "impact": "The first automation typically returns 3 to 5 hours per week. After 6 automations, teams report 20 to 30 percent capacity recovery.",
+          "timeToImplement": "1 week for first automation"
+        },
+        "at_risk": {
+          "title": "Build an 'automation backlog' and ship one per week",
+          "body": "Teams plateau at this tier because they automate sporadically. The fix is treating automation as an ongoing function: maintain a backlog, prioritise by hours-saved-per-week, ship one new automation each week. Eight weeks of this and you're in the top quartile of operational efficiency.",
+          "firstStep": "Create a simple Notion or Airtable backlog. Add every manual task you notice this week with an estimated hours-saved-per-week.",
+          "impact": "20 to 40 percent of team capacity typically recovered within 2 quarters.",
+          "timeToImplement": "Ongoing weekly cadence"
+        },
+        "functional": {
+          "title": "Move from automation to orchestration",
+          "body": "You've automated individual workflows. The next layer is connecting them — when a renewal alert fires, it should trigger the QBR scheduling, pull the latest health score, and prep the renewal play in one motion. Tools like n8n and Make support this; most teams just don't think to wire it up.",
+          "firstStep": "Pick your two most-related automations. Sketch how they could trigger each other. Build the connection this week.",
+          "impact": "Orchestrated workflows typically cut total cycle time by 40 to 60 percent over individual automations.",
+          "timeToImplement": "2 to 4 weeks"
+        },
+        "mature": {
+          "title": "Add LLM-powered judgment to your automation layer",
+          "body": "You've automated the deterministic work. The frontier now is automating the parts that previously required human judgment — categorising tickets by intent, drafting first-pass responses, summarising QBR calls into action items. Claude or GPT in your n8n flows can save another 10 to 20 hours per week beyond what rules-based automation reaches.",
+          "firstStep": "Pick one workflow that currently requires human judgment but follows a pattern. Add an LLM step. Test for 30 days against human output.",
+          "impact": "10 to 20 additional hours per week recovered, on top of rules-based automation.",
+          "timeToImplement": "1 to 3 weeks per workflow"
+        }
+      }
+    },
+    {
+      "id": "data",
+      "name": "Data and reporting",
+      "shortName": "Data",
+      "weight": 0.15,
+      "description": "Whether leadership can see what they need without asking. The cost of bad data isn't the wrong dashboard. It's the meeting that runs long because two people have different numbers. It's the decision delayed because someone has to double-check the source.",
+      "questions": [
+        {
+          "id": "q13",
+          "type": "single_select",
+          "text": "When the CEO asks 'how are we doing on accounts this month', how long does it take to get an answer?",
+          "options": [
+            { "id": "a", "label": "Hours to a day — someone has to pull and reconcile data", "points": 0 },
+            { "id": "b", "label": "30 minutes — dashboard exists but needs interpretation", "points": 3 },
+            { "id": "c", "label": "5 minutes — they pull it themselves from a dashboard", "points": 7 },
+            { "id": "d", "label": "Real-time — there's a leadership dashboard always-on", "points": 10 }
+          ]
+        },
+        {
+          "id": "q14",
+          "type": "single_select",
+          "text": "How confident are you that the numbers in your CRM and dashboards match reality?",
+          "options": [
+            { "id": "a", "label": "Honestly, the data is messy — we don't fully trust it", "points": 0 },
+            { "id": "b", "label": "Trust the headline metrics, distrust the breakdowns", "points": 3 },
+            { "id": "c", "label": "Mostly trustworthy, with known gaps", "points": 6 },
+            { "id": "d", "label": "High confidence — data hygiene is a tracked metric", "points": 10 }
+          ]
+        },
+        {
+          "id": "q15",
+          "type": "single_select",
+          "text": "Your reporting cadence is best described as...",
+          "options": [
+            { "id": "a", "label": "We pull reports when asked", "points": 0 },
+            { "id": "b", "label": "Weekly snapshot reports, mostly lagging metrics", "points": 3 },
+            { "id": "c", "label": "Weekly plus monthly with leading indicators", "points": 7 },
+            { "id": "d", "label": "Real-time dashboards plus scheduled deep-dives plus leading and lagging metrics", "points": 10 }
+          ]
+        }
+      ],
+      "recommendations": {
+        "critical": {
+          "title": "Build one always-on leadership dashboard this month",
+          "body": "When the CEO has to ask, you've already lost. The fix is one dashboard, four KPIs, refreshed daily — ARR, GRR, account count by tier, active escalations. That's it. Don't try to solve all reporting at once. Looker Studio or Metabase can both do this in a day if you have the data.",
+          "firstStep": "Decide the four KPIs leadership cares about most. Connect them to whatever CRM you use. Share the dashboard URL in Slack daily for a week to build the habit of looking at it.",
+          "impact": "Companies typically reclaim 4 to 8 hours per week of senior time previously spent answering ad-hoc data questions.",
+          "timeToImplement": "1 to 2 weeks"
+        },
+        "at_risk": {
+          "title": "Add data hygiene as a tracked metric",
+          "body": "Numbers you don't trust are worse than no numbers, because they cause overconfidence. Pick three data quality metrics — percentage of accounts with current owner, percentage of opportunities with close date, percentage of contacts with valid email — and track them monthly. Set targets. Assign an owner.",
+          "firstStep": "Run a one-time audit on those three metrics. Publish the baseline. Set a target 6 months out. Assign an owner.",
+          "impact": "Data trust scores typically improve 30 to 50 percent within 2 quarters.",
+          "timeToImplement": "1 day baseline, ongoing"
+        },
+        "functional": {
+          "title": "Layer in leading indicators alongside lagging ones",
+          "body": "Most reporting at this tier is lagging — what happened last month. The next step is adding leading indicators that predict what's coming: pipeline coverage ratio, expansion signals, health score distribution, time-to-close trending. Leading indicators give the team 30 to 60 days of warning before lagging metrics shift.",
+          "firstStep": "Pick 2 leading indicators that map to your biggest revenue risks. Add them to the leadership dashboard alongside lagging metrics.",
+          "impact": "Earlier course-correction typically protects 1 to 3 percentage points of ARR per year.",
+          "timeToImplement": "2 to 3 weeks"
+        },
+        "mature": {
+          "title": "Push self-service deeper into the org",
+          "body": "At your tier, the next gain is making non-ops people fluent in the data. Train CSMs to query their own account-level data. Train sales to pull their own pipeline reports. Every question a non-ops team can answer themselves is a question that doesn't interrupt the ops team.",
+          "firstStep": "Pick one team (CS or sales). Run a 1-hour training on the dashboard most relevant to them. Track their dashboard logins for a month.",
+          "impact": "Ops team capacity typically increases 10 to 20 percent as ad-hoc query load drops.",
+          "timeToImplement": "1 month to embed"
+        }
+      }
+    },
+    {
+      "id": "renewal",
+      "name": "Renewal and expansion",
+      "shortName": "Renewal",
+      "weight": 0.15,
+      "description": "Whether you protect renewals 60+ days out and treat expansion as a tracked motion. The 2025 benchmarks show that companies above $50M ARR now generate 60 percent of new ARR from existing customers. Even at $1M to $5M, expansion contributes 40 percent of new ARR.",
+      "questions": [
+        {
+          "id": "q16",
+          "type": "single_select",
+          "text": "When does the renewal conversation typically start with a customer?",
+          "options": [
+            { "id": "a", "label": "After the renewal date passes, or when the customer brings it up", "points": 0 },
+            { "id": "b", "label": "30 days out", "points": 3 },
+            { "id": "c", "label": "60 to 90 days out", "points": 7 },
+            { "id": "d", "label": "120+ days out, with a defined renewal play", "points": 10 }
+          ]
+        },
+        {
+          "id": "q17",
+          "type": "single_select",
+          "text": "For your top 20 percent of accounts, how clear is the expansion path?",
+          "options": [
+            { "id": "a", "label": "We don't have an expansion strategy per account", "points": 0 },
+            { "id": "b", "label": "We pitch expansion when usage indicates it", "points": 3 },
+            { "id": "c", "label": "Each top account has documented expansion opportunities and a named owner", "points": 7 },
+            { "id": "d", "label": "Expansion is forecast like new sales — pipeline, stages, win rates", "points": 10 }
+          ]
+        },
+        {
+          "id": "q18",
+          "type": "single_select",
+          "text": "What's your gross revenue retention (GRR) over the last 12 months?",
+          "options": [
+            { "id": "a", "label": "Don't track GRR, or below 80 percent", "points": 0 },
+            { "id": "b", "label": "80 to 90 percent", "points": 3 },
+            { "id": "c", "label": "90 to 95 percent", "points": 7 },
+            { "id": "d", "label": "95 percent or higher", "points": 10 }
+          ]
+        }
+      ],
+      "recommendations": {
+        "critical": {
+          "title": "Move every renewal conversation to 90 days out",
+          "body": "You're losing renewals you could have saved because you're starting the conversation too late. Block one hour every Monday to review every account renewing in the next 120 days. That single calendar habit — without changing anything else — will lift renewal rates 5 to 10 percentage points within two quarters.",
+          "firstStep": "Pull a list of every account renewing in the next 120 days. Assign each one to a CSM with a date for the first renewal touch. Track progress weekly.",
+          "impact": "For a $5M ARR company at 85 percent GRR, lifting GRR to 90 percent recovers ~$250K of ARR per year.",
+          "timeToImplement": "1 week to set up cadence"
+        },
+        "at_risk": {
+          "title": "Document expansion paths for your top 20 accounts",
+          "body": "Expansion that 'happens when CSMs have time' doesn't happen. The fix is making expansion a tracked motion: each top account gets an expansion hypothesis (what additional product, seats, or tier they could grow into), an owner, and a target close date. This single change typically lifts NRR by 4 to 6 percentage points within 6 months.",
+          "firstStep": "List your top 20 accounts. For each, write one sentence: 'This account could grow by [X] if we [Y].' Assign an owner.",
+          "impact": "4 to 6 NRR percentage points within 6 months for teams that adopt this.",
+          "timeToImplement": "1 to 2 weeks"
+        },
+        "functional": {
+          "title": "Forecast expansion like a sales pipeline",
+          "body": "You have expansion paths. The next layer is treating expansion deals with the same rigour as new business — stages, win rates, weighted forecasts, weekly review. Most CS teams resist this because it feels like sales. The teams that adopt it consistently outperform those that don't, by 8 to 12 NRR points.",
+          "firstStep": "Build a simple pipeline view of your top 20 accounts' expansion opportunities. Include stage, value, expected close date. Review weekly with CS leadership.",
+          "impact": "8 to 12 NRR percentage points for teams that fully adopt this.",
+          "timeToImplement": "2 to 4 weeks to build, ongoing"
+        },
+        "mature": {
+          "title": "Build a customer growth scorecard at the account level",
+          "body": "At your maturity, the next layer is account-level growth modeling: which accounts have the highest expansion potential, which CSMs convert that potential best, which products have the highest cross-sell rate. This is where NRR moves from 110 to 125 percent.",
+          "firstStep": "Pick 3 dimensions to track per account: expansion potential score, engagement depth, cross-sell readiness. Score every top-tier account next quarter.",
+          "impact": "Top-decile NRR companies see this analytics layer compound into 5 to 10 additional NRR points over 18 months.",
+          "timeToImplement": "1 quarter to build, ongoing"
+        }
+      }
+    }
+  ],
+  "grrCommentary": {
+    "below_80": "Your GRR is below the B2B SaaS minimum. The 2025 median sits at 90 to 92 percent, with top quartile at 95 percent or higher. Until GRR moves, no other growth investment will compound.",
+    "80_90": "Your GRR is below the 2025 B2B SaaS median (90 to 92 percent). Closing this gap would protect significant ARR — for a $10M ARR company, lifting GRR from 87 to 92 percent recovers $500K annually.",
+    "90_95": "Your GRR is at or above the 2025 B2B SaaS median (90 to 92 percent). Closing the gap to top quartile (95 percent or higher) is where the next leverage is.",
+    "95_plus": "Your GRR is in the top quartile of B2B SaaS in 2025. Maintain the discipline — top-quartile GRR is the strongest predictor of long-term ARR growth."
+  }
+}
