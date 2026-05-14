@@ -50,7 +50,7 @@ function Hero() {
 
         <p className="font-display text-xl lg:text-2xl text-ink-700 leading-relaxed max-w-prose mb-12 animate-fade-up [animation-delay:200ms] opacity-0">
           A free diagnostic for B2B SaaS operations leaders. Six pillars,
-          benchmarked against 2025 industry data, with a prioritised report on
+          benchmarked against {new Date().getFullYear()} industry data, with a prioritised report on
           what to fix first.
         </p>
 
@@ -81,7 +81,7 @@ function WhyItMatters() {
 
         <div className="lg:col-span-7 lg:col-start-6 space-y-6 text-ink-700 leading-relaxed">
           <p className="text-lg">
-            The 2025 benchmarks tell a hard story. Median gross revenue
+            The {new Date().getFullYear()} benchmarks tell a hard story. Median gross revenue
             retention for B2B SaaS sits at 90 to 92 percent. The top quartile
             achieves 95 percent or higher. The difference is rarely effort. It's
             visibility — whether ops sees the problems coming, or only finds out
@@ -177,7 +177,7 @@ function CallToAction() {
         </h2>
         <p className="text-lg text-ink-600 leading-relaxed mb-10 max-w-prose">
           18 questions across 6 pillars. Most leaders finish in under 5 minutes.
-          You'll get the full report by email immediately after.
+          You'll see your full results immediately — score, pillar breakdown, and your top three priorities.
         </p>
         <Link href="/scorecard" className="btn-primary">
           Start now
@@ -196,7 +196,6 @@ function Footer() {
           <p className="font-display text-ink-900">RevOps Scorecard</p>
           <p className="text-caption max-w-md">
             Built by Abhishek Rai. A free tool for B2B SaaS ops leaders.
-            Benchmarks sourced from 2025 SaaS industry reports.
           </p>
         </div>
         <div className="flex items-center gap-6 text-caption">
@@ -219,3 +218,4 @@ function Footer() {
     </footer>
   );
 }
+
