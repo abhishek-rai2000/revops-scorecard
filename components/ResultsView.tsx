@@ -274,7 +274,6 @@ function Footer() {
           <p className="font-display text-ink-900">RevOps Scorecard</p>
           <p className="text-caption max-w-md">
             Built by Abhishek Rai. A free tool for B2B SaaS ops leaders.
-            Benchmarks sourced from 2025 SaaS industry reports.
           </p>
         </div>
         <div className="flex items-center gap-6 text-caption">
