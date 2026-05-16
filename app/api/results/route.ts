@@ -8,16 +8,16 @@ const supabase = createClient(
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+  const slug = searchParams.get("slug");
 
-  if (!id) {
-    return NextResponse.json({ error: "Missing id" }, { status: 400 });
+  if (!slug) {
+    return NextResponse.json({ error: "Missing slug" }, { status: 400 });
   }
 
   const { data, error } = await supabase
     .from("scorecard_submissions")
     .select("name, email, role, responses, total_score, tier, pillar_scores")
-    .eq("public_id", id)
+    .eq("slug", slug)
     .single();
 
   if (error || !data) {
