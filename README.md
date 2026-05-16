@@ -4,7 +4,7 @@ A free 5-minute diagnostic that scores B2B SaaS revenue operations across six we
 
 **Live:** [revops-scorecard](https://getrevscore.vercel.app/)
 
-Built by [Abhishek Rai](https://abhishek-rai-1.netlify.app) — Sales Ops & Automation Lead specialising in B2B Telecom and SaaS operations.
+Built by Abhishek Rai [Portfolio](https://abhishek-rai-1.netlify.app) — Sales Ops & Automation Lead specialising in B2B Telecom and SaaS operations.
 
 ---
 
@@ -30,6 +30,6 @@ Next.js 14, TypeScript, Tailwind CSS. Editorial design system with custom typogr
 
 ---
 
-If you're a B2B SaaS ops leader who took the scorecard and wants to discuss your specific results, book a free 30-minute walkthrough at [Abhishek Rai](mailto:abhishek.k0420@gmail.com).
+If you're a B2B SaaS ops leader who took the scorecard and wants to discuss your specific results, book a free 30-minute walkthrough at [E-mail](mailto:abhishek.k0420@gmail.com).
 
 © Abhishek Rai. All rights reserved.
