@@ -2,7 +2,7 @@
 
 A free 5-minute diagnostic that scores B2B SaaS revenue operations across six weighted pillars and returns a personalised report with prioritised fixes.
 
-**Live:** [revops-scorecard.vercel.app](https://revops-scorecard.vercel.app)
+**Live:** [revops-scorecard](https://getrevscore.vercel.app/)
 
 Built by [Abhishek Rai](https://abhishek-rai-1.netlify.app) — Sales Ops & Automation Lead specialising in B2B Telecom and SaaS operations.
 
