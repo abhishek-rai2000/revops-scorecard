@@ -190,7 +190,7 @@ function buildEmailHtml({
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 32px;">
                 <tr>
                   <td style="background: #15140F; border-radius: 6px; text-align: center; padding: 14px 24px;">
-                    <a href="https://revops-scorecard.vercel.app/results" style="color: #FBF8F1; font-size: 14px; font-weight: 500; text-decoration: none;">
+                    <a href="https://getrevscore.vercel.app/" style="color: #FBF8F1; font-size: 14px; font-weight: 500; text-decoration: none;">
                       View full results online →
                     </a>
                   </td>
@@ -205,7 +205,7 @@ function buildEmailHtml({
               <p style="margin: 0 0 4px; font-size: 12px; color: #A39C88;">
                 Built by Abhishek Rai ·
                 <a href="https://abhishek-rai-1.netlify.app" style="color: #A39C88;">Portfolio</a> ·
-                <a href="mailto:iabhishekrai0@gmail.com" style="color: #A39C88;">iabhishekrai0@gmail.com</a>
+                <a href="mailto:abhishek.k0420@gmail.com" style="color: #A39C88;">abhishek.k0420@gmail.com</a>
               </p>
               <p style="margin: 0; font-size: 11px; color: #A39C88;">
                 You're receiving this because you completed the RevOps Health Scorecard.
