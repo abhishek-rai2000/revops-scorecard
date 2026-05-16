@@ -21,7 +21,6 @@ export async function POST(req: Request) {
     }
 
     const result = calculateScore(scorecard, responses);
-
     const publicId = crypto.randomUUID();
 
     const { error: dbError } = await supabase
@@ -54,6 +53,7 @@ export async function POST(req: Request) {
       to: lead.email,
       subject: `Your RevOps Health Score: ${result.totalScore}/100 — ${result.tier.label}`,
       html: buildEmailHtml({
+        publicId,
         name: lead.name,
         score: result.totalScore,
         tier: result.tier.label,
@@ -90,6 +90,7 @@ export async function POST(req: Request) {
 }
 
 function buildEmailHtml({
+  publicId,
   name,
   score,
   tier,
@@ -97,6 +98,7 @@ function buildEmailHtml({
   topPillarNames,
   priorities,
 }: {
+  publicId: string;
   name: string;
   score: number;
   tier: string;
