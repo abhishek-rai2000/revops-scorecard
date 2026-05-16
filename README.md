@@ -30,6 +30,6 @@ Next.js 14, TypeScript, Tailwind CSS. Editorial design system with custom typogr
 
 ---
 
-If you're a B2B SaaS ops leader who took the scorecard and wants to discuss your specific results, book a free 30-minute walkthrough at [abhishek.k0420@gmail.com](mailto:abhishek.k0420@gmail.com).
+If you're a B2B SaaS ops leader who took the scorecard and wants to discuss your specific results, book a free 30-minute walkthrough at [Abhishek Rai](mailto:abhishek.k0420@gmail.com).
 
 © Abhishek Rai. All rights reserved.
