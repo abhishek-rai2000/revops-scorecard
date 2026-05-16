@@ -28,6 +28,31 @@ export function ResultsView() {
   } | null>(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    if (id) {
+      fetch(`/api/results?id=${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Not found");
+          return res.json();
+        })
+        .then((data) => {
+          const submission: Submission = {
+            lead: { name: data.name, email: data.email, role: data.role },
+            context: {},
+            responses: data.responses,
+            submittedAt: "",
+          };
+          const result = calculateScore(scorecard, submission.responses);
+          setData({ submission, result });
+        })
+        .catch(() => {
+          router.push("/scorecard");
+        });
+      return;
+    }
+
     const raw = sessionStorage.getItem("scorecard_submission");
     if (!raw) {
       router.push("/scorecard");

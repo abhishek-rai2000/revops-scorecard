@@ -22,9 +22,12 @@ export async function POST(req: Request) {
 
     const result = calculateScore(scorecard, responses);
 
+    const publicId = crypto.randomUUID();
+
     const { error: dbError } = await supabase
       .from("scorecard_submissions")
       .insert({
+        public_id: publicId,
         name: lead.name,
         email: lead.email,
         role: lead.role,
@@ -78,6 +81,7 @@ export async function POST(req: Request) {
       ok: true,
       score: result.totalScore,
       tier: result.tier.id,
+      publicId,
     });
   } catch (error) {
     console.error("[submit:error]", error);
@@ -190,7 +194,7 @@ function buildEmailHtml({
               <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 32px;">
                 <tr>
                   <td style="background: #15140F; border-radius: 6px; text-align: center; padding: 14px 24px;">
-                    <a href="https://getrevscore.vercel.app/" style="color: #FBF8F1; font-size: 14px; font-weight: 500; text-decoration: none;">
+                    <a href="https://getrevscore.vercel.app/results?id=${publicId}" style="color: #FBF8F1; font-size: 14px; font-weight: 500; text-decoration: none;">
                       View full results online →
                     </a>
                   </td>
