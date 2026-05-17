@@ -306,7 +306,7 @@ function buildEmailHtml({
           <p style="margin:0 0 4px;font-size:12px;color:#A39C88;">
             Built by Abhishek Rai -
             <a href="https://abhishek-rai-1.netlify.app" style="color:#A39C88;">Portfolio</a> -
-            <a href="mailto:abhishek.k0420@gmail.com" style="color:#A39C88;">abhishek.k0420@gmail.com</a>
+            <a href="mailto:abhishek.k0420@gmail.com" style="color:#A39C88;">Mail</a>
           </p>
           <p style="margin:0;font-size:11px;color:#A39C88;">
             You received this because you completed the RevOps Health Scorecard.
