@@ -50,7 +50,7 @@ function Hero() {
 
         <p className="font-display text-xl lg:text-2xl text-ink-700 leading-relaxed max-w-prose mb-12 animate-fade-up [animation-delay:200ms] opacity-0">
           A free diagnostic for B2B SaaS operations leaders. Six pillars,
-          benchmarked against {new Date().getFullYear()} industry data, with a prioritised report on
+          benchmarked against latest industry data, with a prioritised report on
           what to fix first.
         </p>
 
@@ -83,9 +83,9 @@ function WhyItMatters() {
           <p className="text-lg">
             The {new Date().getFullYear()} benchmarks tell a hard story. Median gross revenue
             retention for B2B SaaS sits at 90 to 92 percent. The top quartile
-            achieves 95 percent or higher. The difference is rarely effort. It's
-            visibility — whether ops sees the problems coming, or only finds out
-            at renewal time.
+            achieves 95 percent or higher. The difference is rarely effort.
+            {"It's"} visibility — whether ops sees the problems coming, or only
+            finds out at renewal time.
           </p>
           <p>
             This scorecard measures the systems behind that visibility. Churn
@@ -95,7 +95,7 @@ function WhyItMatters() {
             it.
           </p>
           <p>
-            You'll get a tier, a pillar-by-pillar breakdown, and the three
+            {"You'll"} get a tier, a pillar-by-pillar breakdown, and the three
             highest-leverage fixes for your specific weaknesses — each with a
             first step you can take this week.
           </p>
@@ -109,23 +109,19 @@ function WhatYouGet() {
   const items = [
     {
       title: "A weighted total score",
-      body:
-        "Across the six pillars, weighted by their actual impact on revenue. Mapped to one of four tiers from Critical to Mature, with framing for what your tier means at your stage.",
+      body: "Across the six pillars, weighted by their actual impact on revenue. Mapped to one of four tiers from Critical to Mature, with framing for what your tier means at your stage.",
     },
     {
       title: "A pillar-level breakdown",
-      body:
-        "See exactly where you're strong, where you're weak, and how you compare to similar B2B SaaS companies. The breakdown surfaces problems most leaders sense but can't articulate.",
+      body: "See exactly where you're strong, where you're weak, and how you compare to similar B2B SaaS companies. The breakdown surfaces problems most leaders sense but can't articulate.",
     },
     {
       title: "Three prioritised fixes",
-      body:
-        "The three lowest-scoring pillars get tier-appropriate recommendations — not generic advice, but specific first steps with estimated revenue impact and time to implement.",
+      body: "The three lowest-scoring pillars get tier-appropriate recommendations — not generic advice, but specific first steps with estimated revenue impact and time to implement.",
     },
     {
-      title: "A shareable PDF report",
-      body:
-        "Designed to be sent to your team or your CEO. Four pages: cover with score, pillar radar, top 3 priorities, what to do next.",
+      title: "A detailed email report",
+      body: "Delivered to your inbox immediately after. Includes your score, an AI-generated consultant's read on your specific situation, and your top three priorities. Shareable via a permanent link.",
     },
   ];
 
@@ -176,8 +172,9 @@ function CallToAction() {
           Take the {scorecard.meta.estimatedMinutes}-minute scorecard.
         </h2>
         <p className="text-lg text-ink-600 leading-relaxed mb-10 max-w-prose">
-          18 questions across 6 pillars. Most leaders finish in under 5 minutes.
-          You'll see your full results immediately — score, pillar breakdown, and your top three priorities.
+          18 questions across 6 pillars. Most leaders finish in under 5
+          minutes. {"You'll"} see your full results immediately — score, pillar
+          breakdown, and your top three priorities.
         </p>
         <Link href="/scorecard" className="btn-primary">
           Start now
@@ -213,6 +210,9 @@ function Footer() {
           >
             Contact
           </a>
+          <Link href="/privacy" className="hover:text-ember-600 transition-colors">
+            Privacy
+          </Link>
         </div>
       </div>
     </footer>

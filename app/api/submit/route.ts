@@ -1,8 +1,11 @@
+export const dynamic = "force-dynamic";
+
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import Groq from "groq-sdk";
 import { scorecard } from "@/lib/content";
 import { calculateScore } from "@/lib/scoring";
+import { checkRateLimit } from "@/lib/rateLimit";
 import type { ScoreResult } from "@/lib/types";
 
 const supabase = createClient(
@@ -69,15 +72,10 @@ Tone: direct, expert, no jargon, no filler phrases like "it's worth noting" or "
 
 function getStaticNarrative(result: ScoreResult): string {
   const weakest = result.topPriorities.map((p) => p.name).join(", ");
-  return `Your score of ${result.totalScore}/100 places you in the ${result.tier.label} tier — ${result.tier.framing.toLowerCase()} The pattern in your results points to gaps in ${weakest}, which are compounding each other. Fixing the lowest-scoring pillar first will create the most leverage across your entire ops system.`;
+  return `Your score of ${result.totalScore}/100 places you in the ${result.tier.label} tier. The pattern in your results points to gaps in ${weakest}, which are compounding each other. Fixing the lowest-scoring pillar first will create the most leverage across your entire ops system.`;
 }
 
-async function sendEmail(
-  to: string,
-  toName: string,
-  subject: string,
-  html: string
-) {
+async function sendEmail(to: string, toName: string, subject: string, html: string) {
   const res = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
@@ -103,14 +101,24 @@ async function sendEmail(
 
 export async function POST(req: Request) {
   try {
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      "unknown";
+
+    const { allowed } = checkRateLimit(ip);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const { lead, context, responses } = body;
 
     if (!lead?.email || !lead?.name) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     const result = calculateScore(scorecard, responses);
@@ -233,7 +241,7 @@ function buildEmailHtml({
     <tr>
       <td style="padding:20px 0;border-bottom:1px solid #EFE9DD;">
         <p style="margin:0 0 4px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#C2410C;">
-          Priority ${i + 1} · ${p.name} · ${p.score}/100
+          Priority ${i + 1} - ${p.name} - ${p.score}/100
         </p>
         <p style="margin:0 0 10px;font-size:17px;font-weight:500;color:#15140F;font-family:Georgia,serif;">
           ${p.title}
@@ -274,10 +282,10 @@ function buildEmailHtml({
           <p style="margin:0 0 16px;font-size:56px;font-weight:300;color:#15140F;font-family:Georgia,serif;line-height:1;">
             ${score}<span style="font-size:24px;color:#A39C88;">/100</span>
           </p>
-          <p style="margin:0 0 32px;display:inline-block;padding:6px 14px;background:#FDF4EC;border:1px solid rgba(194,65,12,0.3);border-radius:20px;font-size:13px;font-weight:500;color:${tierColor};">
+          <p style="margin:0 0 24px;display:inline-block;padding:6px 14px;background:#FDF4EC;border:1px solid rgba(194,65,12,0.3);border-radius:20px;font-size:13px;font-weight:500;color:${tierColor};">
             ${tier}
           </p>
-          <p style="margin:0 0 24px;font-size:15px;color:#3A372E;line-height:1.7;border-left:2px solid #C2410C;padding-left:16px;">
+          <p style="margin:0 0 32px;font-size:15px;color:#3A372E;line-height:1.7;border-left:2px solid #C2410C;padding-left:16px;">
             ${tierFraming}
           </p>
           ${narrativeBlock}
@@ -289,19 +297,19 @@ function buildEmailHtml({
           <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:32px;">
             <tr><td style="background:#15140F;border-radius:6px;text-align:center;padding:14px 24px;">
               <a href="${resultsUrl}" style="color:#FBF8F1;font-size:14px;font-weight:500;text-decoration:none;">
-                View your full results →
+                View your full results
               </a>
             </td></tr>
           </table>
         </td></tr>
         <tr><td style="padding:24px 0 0;text-align:center;">
           <p style="margin:0 0 4px;font-size:12px;color:#A39C88;">
-            Built by Abhishek Rai ·
-            <a href="https://abhishek-rai-1.netlify.app" style="color:#A39C88;">Portfolio</a> ·
-            <a href="mailto:abhishek.k0420@gmail.com" style="color:#A39C88;">Mail</a>
+            Built by Abhishek Rai -
+            <a href="https://abhishek-rai-1.netlify.app" style="color:#A39C88;">Portfolio</a> -
+            <a href="mailto:abhishek.k0420@gmail.com" style="color:#A39C88;">abhishek.k0420@gmail.com</a>
           </p>
           <p style="margin:0;font-size:11px;color:#A39C88;">
-            You're receiving this because you completed the RevOps Health Scorecard.
+            You received this because you completed the RevOps Health Scorecard.
           </p>
         </td></tr>
       </table>
