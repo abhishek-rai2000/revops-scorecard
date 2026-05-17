@@ -11,7 +11,7 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-parchment-100">
       <header className="px-6 lg:px-12 py-6 max-w-canvas mx-auto">
         <Link href="/" className="inline-flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full bg-ember-600" aria-hidden />
+          <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#0D6B5E" }} aria-hidden />
           <span className="font-display text-lg tracking-tight text-ink-900">
             RevOps Scorecard
           </span>
