@@ -18,6 +18,7 @@ type Submission = {
   context: ContextResponses;
   responses: QuestionResponses;
   submittedAt: string;
+  aiNarrative?: string;
 };
 
 export function ResultsView() {
@@ -28,31 +29,6 @@ export function ResultsView() {
   } | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
-
-    if (id) {
-      fetch(`/api/results?id=${id}`)
-        .then((res) => {
-          if (!res.ok) throw new Error("Not found");
-          return res.json();
-        })
-        .then((data) => {
-          const submission: Submission = {
-            lead: { name: data.name, email: data.email, role: data.role },
-            context: {},
-            responses: data.responses,
-            submittedAt: "",
-          };
-          const result = calculateScore(scorecard, submission.responses);
-          setData({ submission, result });
-        })
-        .catch(() => {
-          router.push("/scorecard");
-        });
-      return;
-    }
-
     const raw = sessionStorage.getItem("scorecard_submission");
     if (!raw) {
       router.push("/scorecard");
@@ -62,6 +38,19 @@ export function ResultsView() {
       const submission: Submission = JSON.parse(raw);
       const result = calculateScore(scorecard, submission.responses);
       setData({ submission, result });
+
+      const interval = setInterval(() => {
+        const updated = sessionStorage.getItem("scorecard_submission");
+        if (updated) {
+          const parsed: Submission = JSON.parse(updated);
+          if (parsed.aiNarrative) {
+            setData({ submission: parsed, result });
+            clearInterval(interval);
+          }
+        }
+      }, 500);
+
+      setTimeout(() => clearInterval(interval), 15000);
     } catch {
       router.push("/scorecard");
     }
@@ -70,12 +59,13 @@ export function ResultsView() {
   if (!data) {
     return (
       <main className="min-h-screen bg-parchment-100 flex items-center justify-center">
-        <p className="text-ink-500 text-sm">Calculating your score…</p>
+        <p className="text-ink-500 text-sm">Calculating your score...</p>
       </main>
     );
   }
 
   const { submission, result } = data;
+  const aiNarrative = submission.aiNarrative || "";
 
   return (
     <main className="min-h-screen bg-parchment-100">
@@ -101,6 +91,14 @@ export function ResultsView() {
             <p className="text-lg text-ink-700 leading-relaxed max-w-prose animate-fade-up [animation-delay:200ms] opacity-0">
               {result.tier.framing}
             </p>
+            {aiNarrative && (
+              <div className="mt-8 p-6 bg-parchment-200/60 border-l-2 border-ember-600/40 rounded-r-md max-w-prose animate-fade-up [animation-delay:300ms] opacity-0">
+                <p className="text-eyebrow mb-3">{"Consultant's read"}</p>
+                <p className="text-ink-700 leading-relaxed text-[15px] whitespace-pre-line">
+                  {aiNarrative}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="lg:col-span-6 animate-fade-up [animation-delay:300ms] opacity-0">
@@ -114,7 +112,7 @@ export function ResultsView() {
       <section className="px-6 lg:px-12 max-w-canvas mx-auto py-16">
         <p className="text-eyebrow mb-3">Pillar breakdown</p>
         <h2 className="font-display text-display-md text-ink-900 mb-10">
-          Where you're strong, where you're weak.
+          {"Where you're strong, where you're weak."}
         </h2>
 
         <div className="divide-y divide-ink-900/10 border-y border-ink-900/10">
@@ -187,26 +185,24 @@ export function ResultsView() {
 
       <section className="px-6 lg:px-12 max-w-canvas mx-auto py-16">
         <div className="max-w-2xl">
-          <p className="text-eyebrow mb-3">What's next</p>
+          <p className="text-eyebrow mb-3">{"What's next"}</p>
           <h2 className="font-display text-display-lg text-ink-900 mb-6">
             Want a 30-minute walkthrough?
           </h2>
           <p className="text-lg text-ink-600 leading-relaxed mb-8">
             The teams that act on a scorecard like this within 30 days
-            typically move up one tier within 6 months. The teams that don't,
-            don't. If you'd like to discuss your specific report and find the
-            single highest-leverage fix for your stage, book a free session
-            below.
+            typically move up one tier within 6 months. If you would like to
+            discuss your specific report and find the single highest-leverage
+            fix for your stage, book a free session below.
           </p>
           <a
             href="mailto:abhishek.k0420@gmail.com?subject=RevOps%20Scorecard%20walkthrough"
             className="btn-primary"
           >
             Book a 30-minute walkthrough
-            <span aria-hidden>→</span>
           </a>
           <p className="text-caption mt-4">
-            No pitch. We'll go through your report and identify what to fix
+            No pitch. We will go through your report and identify what to fix
             first.
           </p>
         </div>
@@ -218,12 +214,14 @@ export function ResultsView() {
 }
 
 function tierLabel(tier: string): string {
-  return {
-    critical: "Critical",
-    at_risk: "At risk",
-    functional: "Functional",
-    mature: "Mature",
-  }[tier] || tier;
+  return (
+    {
+      critical: "Critical",
+      at_risk: "At risk",
+      functional: "Functional",
+      mature: "Mature",
+    }[tier] || tier
+  );
 }
 
 function TierBadge({ tier, label }: { tier: string; label: string }) {
@@ -234,7 +232,6 @@ function TierBadge({ tier, label }: { tier: string; label: string }) {
     mature: "bg-moss-400/10 text-moss-700 border-moss-600/30",
   };
   const cls = styles[tier] || styles.functional;
-
   return (
     <span
       className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium ${cls}`}
@@ -296,4 +293,5 @@ function Footer() {
     </footer>
   );
 }
+
 

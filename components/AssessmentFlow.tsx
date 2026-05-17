@@ -105,7 +105,6 @@ export function AssessmentFlow() {
       submittedAt: new Date().toISOString(),
     };
     sessionStorage.setItem("scorecard_submission", JSON.stringify(payload));
-
     router.push("/results");
 
     fetch("/api/submit", {
@@ -113,9 +112,19 @@ export function AssessmentFlow() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
       keepalive: true,
-    }).catch(() => {
-      // Silent: results page already loads from sessionStorage.
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.aiNarrative) {
+          const stored = sessionStorage.getItem("scorecard_submission");
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            parsed.aiNarrative = data.aiNarrative;
+            sessionStorage.setItem("scorecard_submission", JSON.stringify(parsed));
+          }
+        }
+      })
+      .catch(() => {});
   };
 
   return (
@@ -142,8 +151,6 @@ export function AssessmentFlow() {
             total={
               currentStep?.kind === "context"
                 ? scorecard.context.length
-                : currentStep?.kind === "question"
-                ? scorecard.meta.questionCount
                 : scorecard.meta.questionCount
             }
             label={
@@ -245,5 +252,4 @@ function RenderQuestion({
     />
   );
 }
-
 
