@@ -543,7 +543,7 @@
   ],
   "grrCommentary": {
     "below_80": "Your GRR is below the B2B SaaS minimum. The latest median sits at 90 to 92 percent, with top quartile at 95 percent or higher. Until GRR moves, no other growth investment will compound.",
-    "80_90": "Your GRR is below the latest B2B SaaS median (90 to 92 percent). Closing this gap would protect significant ARR — for a $10M ARR company, lifting GRR from 87 to 92 percent recovers $500K annually.",
+    "80_90": "Your GRR is below the latest B2B SaaS median (90 to 92 percent). Closing this gap would protect significant ARR — lifting GRR by 5 percentage points typically recovers 5 to 6 percent of your annual recurring revenue.",
     "90_95": "Your GRR is at or above the latest B2B SaaS median (90 to 92 percent). Closing the gap to top quartile (95 percent or higher) is where the next leverage is.",
     "95_plus": "Your GRR is in the top quartile of B2B SaaS in latest. Maintain the discipline — top-quartile GRR is the strongest predictor of long-term ARR growth."
   }
