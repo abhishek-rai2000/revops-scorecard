@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "RevOps Health Scorecard | A diagnostic for B2B SaaS operations",
   description:
-    "A 5-minute diagnostic that scores your revenue operations health across 6 pillars, benchmarks you against 2025 industry data, and returns a personalised report with prioritised fixes.",
+    "A 5-minute diagnostic that scores your revenue operations health across 6 pillars, benchmarks you against {new Date().getFullYear()} industry data, and returns a personalised report with prioritised fixes.",
   metadataBase: new URL("https://getrevscore.vercel.app"),
   openGraph: {
     title: "RevOps Health Scorecard",
