@@ -89,7 +89,7 @@
       "name": "Churn signal visibility",
       "shortName": "Churn",
       "weight": 0.25,
-      "description": "Whether you can see churn coming 60 to 90 days before it happens. Of all six pillars, this is the one with the clearest revenue impact. The {new Date().getFullYear()} benchmarks show median GRR for B2B SaaS at 90 to 92 percent — meaning 8 to 10 percent of customers leave every year. Top quartile companies achieve 95 percent or higher. The difference is almost entirely about visibility.",
+      "description": "Whether you can see churn coming 60 to 90 days before it happens. Of all six pillars, this is the one with the clearest revenue impact. The latest benchmarks show median GRR for B2B SaaS at 90 to 92 percent — meaning 8 to 10 percent of customers leave every year. Top quartile companies achieve 95 percent or higher. The difference is almost entirely about visibility.",
       "questions": [
         {
           "id": "q1",
@@ -321,7 +321,7 @@
       "name": "Automation maturity",
       "shortName": "Automation",
       "weight": 0.15,
-      "description": "How much manual work could be automated but isn't. The {new Date().getFullYear()} SaaS benchmarks show ARR per FTE rising sharply — driven by automation. Manual work isn't free; it costs payroll plus error rate plus the opportunity cost of what those people could be doing instead.",
+      "description": "How much manual work could be automated but isn't. The latest SaaS benchmarks show ARR per FTE rising sharply — driven by automation. Manual work isn't free; it costs payroll plus error rate plus the opportunity cost of what those people could be doing instead.",
       "questions": [
         {
           "id": "q10",
@@ -473,7 +473,7 @@
       "name": "Renewal and expansion",
       "shortName": "Renewal",
       "weight": 0.15,
-      "description": "Whether you protect renewals 60+ days out and treat expansion as a tracked motion. The {new Date().getFullYear()} benchmarks show that companies above $50M ARR now generate 60 percent of new ARR from existing customers. Even at $1M to $5M, expansion contributes 40 percent of new ARR.",
+      "description": "Whether you protect renewals 60+ days out and treat expansion as a tracked motion. The latest benchmarks show that companies above $50M ARR now generate 60 percent of new ARR from existing customers. Even at $1M to $5M, expansion contributes 40 percent of new ARR.",
       "questions": [
         {
           "id": "q16",
@@ -542,10 +542,10 @@
     }
   ],
   "grrCommentary": {
-    "below_80": "Your GRR is below the B2B SaaS minimum. The {new Date().getFullYear()} median sits at 90 to 92 percent, with top quartile at 95 percent or higher. Until GRR moves, no other growth investment will compound.",
-    "80_90": "Your GRR is below the {new Date().getFullYear()} B2B SaaS median (90 to 92 percent). Closing this gap would protect significant ARR — for a $10M ARR company, lifting GRR from 87 to 92 percent recovers $500K annually.",
-    "90_95": "Your GRR is at or above the {new Date().getFullYear()} B2B SaaS median (90 to 92 percent). Closing the gap to top quartile (95 percent or higher) is where the next leverage is.",
-    "95_plus": "Your GRR is in the top quartile of B2B SaaS in {new Date().getFullYear()}. Maintain the discipline — top-quartile GRR is the strongest predictor of long-term ARR growth."
+    "below_80": "Your GRR is below the B2B SaaS minimum. The latest median sits at 90 to 92 percent, with top quartile at 95 percent or higher. Until GRR moves, no other growth investment will compound.",
+    "80_90": "Your GRR is below the latest B2B SaaS median (90 to 92 percent). Closing this gap would protect significant ARR — for a $10M ARR company, lifting GRR from 87 to 92 percent recovers $500K annually.",
+    "90_95": "Your GRR is at or above the latest B2B SaaS median (90 to 92 percent). Closing the gap to top quartile (95 percent or higher) is where the next leverage is.",
+    "95_plus": "Your GRR is in the top quartile of B2B SaaS in latest. Maintain the discipline — top-quartile GRR is the strongest predictor of long-term ARR growth."
   }
 }
 
