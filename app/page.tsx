@@ -173,8 +173,9 @@ function CallToAction() {
         </h2>
         <p className="text-lg text-ink-600 leading-relaxed mb-10 max-w-prose">
           18 questions across 6 pillars. Most leaders finish in under 5
-          minutes. {"You'll"} see your full results immediately — score, pillar
-          breakdown, and your top three priorities.
+          minutes. {" "}Free forever. No paid tier. No sales call. Built as a
+          portfolio project by an ops professional with 4 years in B2B
+          enterprise operations.
         </p>
         <Link href="/scorecard" className="btn-primary">
           Start now
