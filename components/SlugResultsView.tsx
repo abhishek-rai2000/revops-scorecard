@@ -232,7 +232,7 @@ export function SlugResultsView({ slug }: Props) {
           </div>
           <div className="flex items-center gap-6 text-caption">
             <a
-              href="https://abhishek-rai-1.netlify.app"
+              href="https://https://abhishekrai.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-ember-600 transition-colors"
