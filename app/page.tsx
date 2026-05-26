@@ -198,7 +198,7 @@ function Footer() {
         </div>
         <div className="flex items-center gap-6 text-caption">
           <a
-            href="https://https://abhishekrai.vercel.app/"
+            href="https://abhishekrai.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-ember-600 transition-colors"
