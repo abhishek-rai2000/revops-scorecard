@@ -25,6 +25,19 @@ function generateSlug(name: string): string {
   return `${firstName}-${day}${month}${year}-${suffix}`;
 }
 
+/**
+ * Maps a raw context answer ID (e.g. "series_a", "1_5m") to its human label
+ * (e.g. "Series A", "$1M to $5M") using scorecard.json context options.
+ * Falls back gracefully if the ID isn't found.
+ */
+function contextLabel(contextId: string, answerId: string | undefined): string | null {
+  if (!answerId) return null;
+  const question = scorecard.context.find((c) => c.id === contextId);
+  if (!question) return null;
+  const option = question.options.find((o) => o.id === answerId);
+  return option ? option.label : null;
+}
+
 async function generateNarrative(
   result: ScoreResult,
   context: Record<string, string>,
@@ -35,9 +48,10 @@ async function generateNarrative(
     .join(", ");
 
   const weakest = result.topPriorities.map((p) => p.name).join(", ");
-  const stage = context?.stage || "unknown stage";
-  const arr = context?.arr || "unknown ARR";
-  const motion = context?.motion || "unknown motion";
+  const stage = contextLabel("stage", context?.stage) || "an unspecified stage";
+  const arr = contextLabel("arr", context?.arr) || "an unspecified ARR band";
+  const motion = contextLabel("motion", context?.motion) || "an unspecified GTM motion";
+  const teamSize = contextLabel("team_size", context?.team_size) || "an unspecified team size";
 
   const prompt = `You are a senior revenue operations consultant writing a personalised diagnostic summary.
 
@@ -45,10 +59,13 @@ The person who completed this scorecard:
 - Role: ${role}
 - Company stage: ${stage}
 - ARR band: ${arr}
+- Team size: ${teamSize}
 - GTM motion: ${motion}
 - Total score: ${result.totalScore}/100 (tier: ${result.tier.label})
 - Pillar scores: ${pillarSummary}
 - Weakest pillars: ${weakest}
+
+Refer to their stage, ARR, and motion using natural business language exactly as written above (e.g. "a Series A company in the $1M to $5M ARR band"). Never use underscores or raw codes.
 
 Write exactly 3 short paragraphs (2-3 sentences each). No headers. No bullet points. No markdown.
 
