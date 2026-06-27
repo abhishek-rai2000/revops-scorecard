@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { scorecard } from "@/lib/content";
+import { siteConfig } from "@/lib/siteConfig";
+import { SourcesStrip } from "@/components/SourcesStrip";
 
 export default function LandingPage() {
   return (
@@ -21,15 +23,23 @@ function Header() {
   return (
     <header className="px-6 lg:px-12 py-6 max-w-canvas mx-auto flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#0D6B5E" }} aria-hidden />
+        <div className="w-2.5 h-2.5 rounded-full bg-ember-800" aria-hidden />
         <span className="font-display text-lg tracking-tight text-ink-900">
-          RevOps Scorecard
+          {siteConfig.shortName}
         </span>
       </div>
-      <Link href="/scorecard" className="btn-ghost">
-        Take the assessment
-        <span aria-hidden>→</span>
-      </Link>
+      <nav className="flex items-center gap-6">
+        <Link
+          href="/methodology"
+          className="text-caption hover:text-ember-600 transition-colors hidden sm:inline"
+        >
+          Methodology
+        </Link>
+        <Link href="/scorecard" className="btn-ghost">
+          Take the assessment
+          <span aria-hidden>→</span>
+        </Link>
+      </nav>
     </header>
   );
 }
@@ -48,11 +58,16 @@ function Hero() {
           really?
         </h1>
 
-        <p className="font-display text-xl lg:text-2xl text-ink-700 leading-relaxed max-w-prose mb-12 animate-fade-up [animation-delay:200ms] opacity-0">
-          A free diagnostic for B2B SaaS operations leaders. Six pillars,
-          benchmarked against latest industry data, with a prioritised report on
-          what to fix first.
+        <p className="font-display text-xl lg:text-2xl text-ink-700 leading-relaxed max-w-prose mb-8 animate-fade-up [animation-delay:200ms] opacity-0">
+          The RevOps Health Scorecard is a free diagnostic for B2B SaaS
+          operations leaders. It scores six pillars of your revenue operation,
+          benchmarks you against published industry retention data, and returns
+          a prioritised report on what to fix first.
         </p>
+
+        <div className="mb-12 animate-fade-up [animation-delay:250ms] opacity-0 max-w-prose">
+          <SourcesStrip variant="inline" />
+        </div>
 
         <div className="flex flex-wrap items-center gap-4 animate-fade-up [animation-delay:300ms] opacity-0">
           <Link href="/scorecard" className="btn-primary">
@@ -81,11 +96,12 @@ function WhyItMatters() {
 
         <div className="lg:col-span-7 lg:col-start-6 space-y-6 text-ink-700 leading-relaxed">
           <p className="text-lg">
-            The {new Date().getFullYear()} benchmarks tell a hard story. Median gross revenue
-            retention for B2B SaaS sits at 90 to 92 percent. The top quartile
-            achieves 95 percent or higher. The difference is rarely effort.
-            {"It's"} visibility — whether ops sees the problems coming, or only
-            finds out at renewal time.
+            The data tells a hard story. Median gross revenue retention for B2B
+            SaaS sits at roughly 90 to 92 percent, while the top quartile
+            reaches 95 percent or higher — a gap that compounds into millions in
+            lost ARR at scale. The difference is rarely effort. {"It's"}{" "}
+            visibility — whether ops sees the problems coming, or only finds out
+            at renewal time.
           </p>
           <p>
             This scorecard measures the systems behind that visibility. Churn
@@ -97,7 +113,15 @@ function WhyItMatters() {
           <p>
             {"You'll"} get a tier, a pillar-by-pillar breakdown, and the three
             highest-leverage fixes for your specific weaknesses — each with a
-            first step you can take this week.
+            first step you can take this week. The scoring and the benchmarks
+            behind it are explained in full on the{" "}
+            <Link
+              href="/methodology"
+              className="text-ember-700 hover:text-ember-600 transition-colors underline underline-offset-2"
+            >
+              methodology page
+            </Link>
+            .
           </p>
         </div>
       </div>
@@ -172,10 +196,9 @@ function CallToAction() {
           Take the {scorecard.meta.estimatedMinutes}-minute scorecard.
         </h2>
         <p className="text-lg text-ink-600 leading-relaxed mb-10 max-w-prose">
-          18 questions across 6 pillars. Most leaders finish in under 5
-          minutes. {" "}Free forever. No paid tier. No sales call. Built as a
-          portfolio project by an ops professional with 4 years in B2B
-          enterprise operations.
+          18 questions across 6 pillars. Most leaders finish in under 5 minutes.
+          Free forever, no paid tier, no sales call — built as a working tool by
+          an operator with 4 years in B2B enterprise operations.
         </p>
         <Link href="/scorecard" className="btn-primary">
           Start now
@@ -191,22 +214,26 @@ function Footer() {
     <footer className="border-t border-ink-900/10 mt-20">
       <div className="max-w-canvas mx-auto px-6 lg:px-12 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2">
-          <p className="font-display text-ink-900">RevOps Scorecard</p>
+          <p className="font-display text-ink-900">{siteConfig.shortName}</p>
           <p className="text-caption max-w-md">
-            Built by Abhishek Rai. A free tool for B2B SaaS ops leaders.
+            Built by {siteConfig.author.name}. A free tool for B2B SaaS ops
+            leaders.
           </p>
         </div>
         <div className="flex items-center gap-6 text-caption">
-          <a
-            href="https://abhishekrai.vercel.app/"
+          <Link href="/methodology" className="hover:text-ember-600 transition-colors">
+            Methodology
+          </Link>
+          
+           <a href={siteConfig.author.portfolio}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-ember-600 transition-colors"
           >
             Portfolio
           </a>
-          <a
-            href="mailto:abhishek.k0420@gmail.com"
+          
+           <a href={`mailto:${siteConfig.contactEmail}`}
             className="hover:text-ember-600 transition-colors"
           >
             Contact
@@ -219,4 +246,5 @@ function Footer() {
     </footer>
   );
 }
+
 
