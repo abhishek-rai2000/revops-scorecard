@@ -5,8 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { scorecard } from "@/lib/content";
 import { calculateScore } from "@/lib/scoring";
+import { siteConfig } from "@/lib/siteConfig";
 import { PillarRadar } from "./PillarRadar";
 import { PriorityCard } from "./PriorityCard";
+import { SourcesStrip } from "./SourcesStrip";
+import { AuthorBlock } from "./AuthorBlock";
 import type {
   ContextResponses,
   QuestionResponses,
@@ -152,6 +155,10 @@ export function ResultsView() {
             <p className="text-ink-800 leading-relaxed">{result.grrCommentary}</p>
           </div>
         )}
+
+        <div className="mt-8 max-w-prose">
+          <SourcesStrip variant="full" />
+        </div>
       </section>
 
       <SectionRule />
@@ -184,27 +191,32 @@ export function ResultsView() {
       <SectionRule />
 
       <section className="px-6 lg:px-12 max-w-canvas mx-auto py-16">
-        <div className="max-w-2xl">
-          <p className="text-eyebrow mb-3">{"What's next"}</p>
-          <h2 className="font-display text-display-lg text-ink-900 mb-6">
-            Want a 30-minute walkthrough?
-          </h2>
-          <p className="text-lg text-ink-600 leading-relaxed mb-8">
-            The teams that act on a scorecard like this within 30 days
-            typically move up one tier within 6 months. If you would like to
-            discuss your specific report and find the single highest-leverage
-            fix for your stage, book a free session below.
-          </p>
-          <a
-            href="mailto:abhishek.k0420@gmail.com?subject=RevOps%20Scorecard%20walkthrough"
-            className="btn-primary"
-          >
-            Book a 30-minute walkthrough
-          </a>
-          <p className="text-caption mt-4">
-            No pitch. We will go through your report and identify what to fix
-            first.
-          </p>
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div className="lg:col-span-7">
+            <p className="text-eyebrow mb-3">{"What's next"}</p>
+            <h2 className="font-display text-display-lg text-ink-900 mb-6">
+              Want a 30-minute walkthrough?
+            </h2>
+            <p className="text-lg text-ink-600 leading-relaxed mb-8">
+              The teams that act on a scorecard like this within 30 days
+              typically move up one tier within 6 months. If you would like to
+              discuss your specific report and find the single highest-leverage
+              fix for your stage, book a free session below.
+            </p>
+            
+             <a href={`mailto:${siteConfig.contactEmail}?subject=RevOps%20Scorecard%20walkthrough`}
+              className="btn-primary"
+            >
+              Book a 30-minute walkthrough
+            </a>
+            <p className="text-caption mt-4">
+              No pitch. We will go through your report and identify what to fix
+              first.
+            </p>
+          </div>
+          <div className="lg:col-span-5">
+            <AuthorBlock variant="compact" />
+          </div>
         </div>
       </section>
 
@@ -244,12 +256,18 @@ function TierBadge({ tier, label }: { tier: string; label: string }) {
 
 function Header() {
   return (
-    <header className="px-6 lg:px-12 py-6 max-w-canvas mx-auto">
+    <header className="px-6 lg:px-12 py-6 max-w-canvas mx-auto flex items-center justify-between">
       <Link href="/" className="inline-flex items-center gap-3">
-        <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#0D6B5E" }} aria-hidden />
+        <div className="w-2.5 h-2.5 rounded-full bg-ember-800" aria-hidden />
         <span className="font-display text-lg tracking-tight text-ink-900">
-          RevOps Scorecard
+          {siteConfig.shortName}
         </span>
+      </Link>
+      <Link
+        href="/methodology"
+        className="text-caption hover:text-ember-600 transition-colors hidden sm:inline"
+      >
+        Methodology
       </Link>
     </header>
   );
@@ -268,22 +286,26 @@ function Footer() {
     <footer className="border-t border-ink-900/10 mt-12">
       <div className="max-w-canvas mx-auto px-6 lg:px-12 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2">
-          <p className="font-display text-ink-900">RevOps Scorecard</p>
+          <p className="font-display text-ink-900">{siteConfig.shortName}</p>
           <p className="text-caption max-w-md">
-            Built by Abhishek Rai. A free tool for B2B SaaS ops leaders.
+            Built by {siteConfig.author.name}. A free tool for B2B SaaS ops
+            leaders.
           </p>
         </div>
         <div className="flex items-center gap-6 text-caption">
-          <a
-            href="https://abhishekrai.vercel.app/"
+          <Link href="/methodology" className="hover:text-ember-600 transition-colors">
+            Methodology
+          </Link>
+          
+          <a  href={siteConfig.author.portfolio}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-ember-600 transition-colors"
           >
             Portfolio
           </a>
-          <a
-            href="mailto:abhishek.k0420@gmail.com"
+          
+           <a href={`mailto:${siteConfig.contactEmail}`}
             className="hover:text-ember-600 transition-colors"
           >
             Contact
