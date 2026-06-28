@@ -75,6 +75,13 @@ export type Pillar = {
 
 export type GrrCommentaryKey = "below_80" | "80_90" | "90_95" | "95_plus";
 
+export type GrrSupportState = "supported" | "unsupported";
+
+export type GrrCommentaryEntry = {
+  supported: string;
+  unsupported: string;
+};
+
 export type Scorecard = {
   version: string;
   meta: {
@@ -87,7 +94,7 @@ export type Scorecard = {
   tiers: Tier[];
   context: ContextQuestion[];
   pillars: Pillar[];
-  grrCommentary: Record<GrrCommentaryKey, string>;
+  grrCommentary: Record<GrrCommentaryKey, GrrCommentaryEntry>;
 };
 
 export type ContextResponses = Record<string, string>;

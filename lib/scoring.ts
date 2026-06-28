@@ -8,6 +8,7 @@ import type {
   Tier,
   TierId,
   GrrCommentaryKey,
+  GrrSupportState,
 } from "./types";
 
 const MAX_POINTS_PER_QUESTION = 10;
@@ -86,6 +87,23 @@ export function getGrrCommentaryKey(grrResponse: string | undefined): GrrComment
   return map[grrResponse] || null;
 }
 
+/**
+ * Determines whether the reported GRR is "operationally supported."
+ * GRR durability depends on BOTH seeing churn coming (churn pillar) AND
+ * running a renewal/expansion motion (renewal pillar). If either is weak
+ * (below the functional threshold of 61), the reported retention rests on
+ * fragile foundations and is flagged as unsupported.
+ */
+export function getGrrSupportState(pillarScores: PillarScore[]): GrrSupportState {
+  const churn = pillarScores.find((p) => p.id === "churn");
+  const renewal = pillarScores.find((p) => p.id === "renewal");
+
+  const churnOk = (churn?.percentageScore ?? 0) >= 61;
+  const renewalOk = (renewal?.percentageScore ?? 0) >= 61;
+
+  return churnOk && renewalOk ? "supported" : "unsupported";
+}
+
 export function calculateScore(
   scorecard: Scorecard,
   responses: QuestionResponses
@@ -106,7 +124,10 @@ export function calculateScore(
     .slice(0, 3);
 
   const grrKey = getGrrCommentaryKey(responses["q18"] as string | undefined);
-  const grrCommentary = grrKey ? scorecard.grrCommentary[grrKey] : null;
+  const grrSupport = getGrrSupportState(pillarScores);
+  const grrCommentary = grrKey
+    ? scorecard.grrCommentary[grrKey][grrSupport]
+    : null;
 
   return {
     totalScore,
