@@ -44,10 +44,24 @@ async function generateNarrative(
   role: string
 ): Promise<string> {
   const pillarSummary = result.pillarScores
-    .map((p) => `${p.name}: ${p.percentageScore}/100`)
+    .map(
+      (p) =>
+        `${p.name}: ${p.percentageScore}/100 (weight ${Math.round(
+          p.weight * 100
+        )}%)`
+    )
     .join(", ");
 
+  // Priorities in the exact order shown on the results page (lowest score first).
   const weakest = result.topPriorities.map((p) => p.name).join(", ");
+
+  // Identify whether the retention-determining pillars are weak, so the
+  // narrative can stay coherent with the GRR analysis on the same page.
+  const churnPillar = result.pillarScores.find((p) => p.id === "churn");
+  const renewalPillar = result.pillarScores.find((p) => p.id === "renewal");
+  const retentionAtRisk =
+    (churnPillar?.percentageScore ?? 100) < 61 ||
+    (renewalPillar?.percentageScore ?? 100) < 61;
   const stage = contextLabel("stage", context?.stage) || "an unspecified stage";
   const arr = contextLabel("arr", context?.arr) || "an unspecified ARR band";
   const motion = contextLabel("motion", context?.motion) || "an unspecified GTM motion";
@@ -67,15 +81,21 @@ The person who completed this scorecard:
 
 Refer to their stage, ARR, and motion using natural business language exactly as written above (e.g. "a Series A company in the $1M to $5M ARR band"). Never use underscores or raw codes.
 
+Scoring context you must reason with:
+- Each pillar is weighted. Churn signal visibility carries the highest weight (25%) because early churn visibility has the most leverage on retained revenue. The other five pillars carry 15% each.
+- Churn signal visibility and Renewal and expansion are the two pillars that determine whether revenue retention is durable.
+- This company's stated top three priorities, in order, are: ${weakest}. These are the three lowest-scoring pillars.
+${retentionAtRisk ? "- IMPORTANT: Churn signal visibility and/or Renewal and expansion scored below a healthy threshold, so revenue retention is operationally at risk. Your analysis must acknowledge this retention risk even if you recommend fixing a different foundational pillar first." : "- Churn signal visibility and Renewal and expansion are both reasonably healthy, so retention is operationally defended."}
+
 Write exactly 3 short paragraphs (2-3 sentences each). No headers. No bullet points. No markdown.
 
 Paragraph 1: What this score tells you about the state of their revenue operations right now. Reference their specific tier and what it means at their stage. Be direct, not reassuring.
 
-Paragraph 2: The pattern you see in their specific pillar scores. Why the weakest pillars are connected. What the root cause likely is. Reference the actual pillar names.
+Paragraph 2: The pattern you see in their specific pillar scores. Weight your analysis by pillar importance — a weak high-weight pillar (especially churn) matters more than a weak low-weight one. Explain why the weakest pillars are connected and what the root cause likely is. Reference the actual pillar names.
 
-Paragraph 3: The single most important thing to fix first and why it unlocks everything else. Be specific and actionable. End with one sentence about what becomes possible when this is fixed.
+Paragraph 3: Recommend the single most important thing to fix first. Anchor this on the highest-leverage weak pillar — when churn signal visibility or renewal motion is weak, the retention risk should drive the recommendation, because protecting existing revenue outranks optimising elsewhere. If you instead recommend a foundational pillar (like process documentation) because it unlocks the others, explicitly explain that sequencing logic AND still name the retention risk that remains. Your recommendation must be consistent with the stated top three priorities above. End with one sentence on what becomes possible once this is fixed.
 
-Tone: direct, expert, no jargon, no filler phrases like "it's worth noting" or "it's important to". Write like a consultant who has seen this exact pattern before.`;
+Tone: direct, expert, no jargon, no filler phrases like "it's worth noting" or "it's important to". Write like a senior consultant briefing a VP of Revenue Operations who will check your logic.`;
 
   const completion = await groq.chat.completions.create({
     model: "llama-3.3-70b-versatile",
