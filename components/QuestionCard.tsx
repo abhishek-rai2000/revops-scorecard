@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Question } from "@/lib/types";
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
   pillarName: string;
   pillarNumber: number;
   questionInPillar: number;
+  whyWeAsk?: string;
   value: string | string[] | undefined;
   onChange: (value: string | string[]) => void;
 };
@@ -16,9 +18,13 @@ export function QuestionCard({
   pillarName,
   pillarNumber,
   questionInPillar,
+  whyWeAsk,
   value,
   onChange,
 }: Props) {
+  const [showWhy, setShowWhy] = useState(false);
+  const showWhyToggle = questionInPillar === 1 && Boolean(whyWeAsk);
+
   return (
     <div className="animate-fade-up">
       <div className="flex items-baseline gap-3 mb-4 flex-wrap">
@@ -34,8 +40,34 @@ export function QuestionCard({
         {question.text}
       </h2>
 
+      {showWhyToggle && (
+        <div className="mt-3 mb-1">
+          <button
+            type="button"
+            onClick={() => setShowWhy((s) => !s)}
+            className="inline-flex items-center gap-1.5 text-sm text-ember-700 hover:text-ember-600 transition-colors"
+            aria-expanded={showWhy}
+          >
+            Why we ask this
+            <span
+              aria-hidden
+              className={`text-xs transition-transform duration-200 ${
+                showWhy ? "rotate-90" : ""
+              }`}
+            >
+              →
+            </span>
+          </button>
+          {showWhy && (
+            <p className="mt-3 text-[15px] text-ink-600 leading-relaxed max-w-prose border-l-2 border-ember-600/30 pl-4 animate-fade-in">
+              {whyWeAsk}
+            </p>
+          )}
+        </div>
+      )}
+
       {question.type === "multi_select" && (
-        <p className="text-sm text-ink-500 mb-8 italic">
+        <p className="text-sm text-ink-500 mb-8 italic mt-4">
           Select all that apply.
         </p>
       )}

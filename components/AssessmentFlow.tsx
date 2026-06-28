@@ -243,6 +243,7 @@ function RenderQuestion({
       pillarName={pillar.name}
       pillarNumber={pillarIndex + 1}
       questionInPillar={questionIndex + 1}
+      whyWeAsk={pillar.whyWeAsk}
       value={responses[question.id]}
       onChange={(value) => {
         const shouldAutoAdvance = question.type === "single_select";

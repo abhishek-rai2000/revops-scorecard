@@ -69,6 +69,7 @@ export type Pillar = {
   shortName: string;
   weight: number;
   description: string;
+  whyWeAsk: string;
   questions: Question[];
   recommendations: PillarRecommendations;
 };
