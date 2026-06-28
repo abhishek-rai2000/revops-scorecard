@@ -115,13 +115,12 @@ export function AssessmentFlow() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.aiNarrative) {
-          const stored = sessionStorage.getItem("scorecard_submission");
-          if (stored) {
-            const parsed = JSON.parse(stored);
-            parsed.aiNarrative = data.aiNarrative;
-            sessionStorage.setItem("scorecard_submission", JSON.stringify(parsed));
-          }
+        const stored = sessionStorage.getItem("scorecard_submission");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (data.slug) parsed.slug = data.slug;
+          if (data.aiNarrative) parsed.aiNarrative = data.aiNarrative;
+          sessionStorage.setItem("scorecard_submission", JSON.stringify(parsed));
         }
       })
       .catch(() => {});
@@ -131,7 +130,7 @@ export function AssessmentFlow() {
     <main className="min-h-screen bg-parchment-100">
       <header className="px-6 lg:px-12 py-6 max-w-3xl mx-auto">
         <Link href="/" className="inline-flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#0D6B5E" }} aria-hidden />
+          <div className="w-2.5 h-2.5 rounded-full bg-ember-800" aria-hidden />
           <span className="font-display text-lg tracking-tight text-ink-900">
             RevOps Scorecard
           </span>

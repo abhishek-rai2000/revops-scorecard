@@ -22,6 +22,7 @@ type Submission = {
   responses: QuestionResponses;
   submittedAt: string;
   aiNarrative?: string;
+  slug?: string;
 };
 
 export function ResultsView() {
@@ -37,26 +38,70 @@ export function ResultsView() {
       router.push("/scorecard");
       return;
     }
-    try {
-      const submission: Submission = JSON.parse(raw);
-      const result = calculateScore(scorecard, submission.responses);
-      setData({ submission, result });
 
-      const interval = setInterval(() => {
-        const updated = sessionStorage.getItem("scorecard_submission");
-        if (updated) {
+    let submission: Submission;
+    try {
+      submission = JSON.parse(raw);
+    } catch {
+      router.push("/scorecard");
+      return;
+    }
+
+    const result = calculateScore(scorecard, submission.responses);
+    setData({ submission, result });
+
+    // If the narrative is already present, we're done.
+    if (submission.aiNarrative) return;
+
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 40; // 40 x 1.5s = up to 60s, generous for slow LLM responses
+
+    const poll = setInterval(async () => {
+      if (cancelled) return;
+      attempts += 1;
+
+      // 1) Check sessionStorage first (AssessmentFlow may have written it).
+      const updated = sessionStorage.getItem("scorecard_submission");
+      if (updated) {
+        try {
           const parsed: Submission = JSON.parse(updated);
           if (parsed.aiNarrative) {
             setData({ submission: parsed, result });
-            clearInterval(interval);
+            clearInterval(poll);
+            return;
           }
+          // 2) If we have a slug but no narrative yet, fetch from the API.
+          if (parsed.slug) {
+            const res = await fetch(`/api/results?slug=${parsed.slug}`);
+            if (res.ok) {
+              const dataFromApi = await res.json();
+              if (dataFromApi.ai_narrative) {
+                const merged = { ...parsed, aiNarrative: dataFromApi.ai_narrative };
+                sessionStorage.setItem(
+                  "scorecard_submission",
+                  JSON.stringify(merged)
+                );
+                setData({ submission: merged, result });
+                clearInterval(poll);
+                return;
+              }
+            }
+          }
+        } catch {
+          // ignore parse/fetch errors, keep polling
         }
-      }, 500);
+      }
 
-      setTimeout(() => clearInterval(interval), 15000);
-    } catch {
-      router.push("/scorecard");
-    }
+      if (attempts >= maxAttempts) {
+        clearInterval(poll);
+      }
+    }, 1500);
+
+    return () => {
+      cancelled = true;
+      clearInterval(poll);
+    };
   }, [router]);
 
   if (!data) {
@@ -297,7 +342,7 @@ function Footer() {
             Methodology
           </Link>
           
-          <a  href={siteConfig.author.portfolio}
+           <a href={siteConfig.author.portfolio}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-ember-600 transition-colors"

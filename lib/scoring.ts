@@ -138,3 +138,4 @@ export function isResponseSetComplete(
 export function getAllQuestions(scorecard: Scorecard): Question[] {
   return scorecard.pillars.flatMap((p) => p.questions);
 }
+

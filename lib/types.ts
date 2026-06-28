@@ -115,3 +115,4 @@ export type ScoreResult = {
   topPriorities: PillarScore[];
   grrCommentary: string | null;
 };
+
