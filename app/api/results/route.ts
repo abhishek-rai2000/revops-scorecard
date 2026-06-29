@@ -18,7 +18,7 @@ export async function GET(req: Request) {
 
   const { data, error } = await supabase
     .from("scorecard_submissions")
-    .select("name, role, responses, total_score, tier, pillar_scores, ai_narrative")
+    .select("name, role, responses, total_score, tier, pillar_scores, ai_narrative, stage, team_size, arr, motion")
     .eq("slug", slug)
     .single();
 

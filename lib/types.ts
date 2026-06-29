@@ -53,11 +53,27 @@ export type MultiSelectQuestion = {
 
 export type Question = SingleSelectQuestion | MultiSelectQuestion;
 
+// Impact is either size-neutral static text (operational pillars) or an
+// ARR-scaled figure (retention pillars: churn, renewal). The scaledLine
+// template uses {band} and {recovery} tokens filled at render time.
+export type StaticImpact = {
+  type: "static";
+  text: string;
+};
+
+export type ScaledImpact = {
+  type: "arrScaled";
+  text: string; // generic fallback shown when ARR is missing
+  scaledLine: string; // template with {band} and {recovery} tokens
+};
+
+export type RecommendationImpact = StaticImpact | ScaledImpact;
+
 export type Recommendation = {
   title: string;
   body: string;
   firstStep: string;
-  impact: string;
+  impact: RecommendationImpact;
   timeToImplement: string;
 };
 

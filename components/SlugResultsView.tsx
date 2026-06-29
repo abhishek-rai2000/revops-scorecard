@@ -18,6 +18,7 @@ type LoadedData = {
   name: string;
   result: ScoreResult;
   aiNarrative: string;
+  arr?: string;
 };
 
 export function SlugResultsView({ slug }: Props) {
@@ -38,6 +39,7 @@ export function SlugResultsView({ slug }: Props) {
           name: raw.name,
           result,
           aiNarrative: raw.ai_narrative || "",
+          arr: raw.arr,
         });
         setLoading(false);
       })
@@ -56,7 +58,7 @@ export function SlugResultsView({ slug }: Props) {
 
   if (!data) return null;
 
-  const { name, result, aiNarrative } = data;
+  const { name, result, aiNarrative, arr } = data;
   const firstName = name.trim().split(" ")[0];
 
   return (
@@ -200,6 +202,7 @@ export function SlugResultsView({ slug }: Props) {
                 rank={i + 1}
                 pillarScore={p}
                 pillar={pillar}
+                arr={arr}
               />
             );
           })}

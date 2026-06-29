@@ -6,6 +6,7 @@ import Groq from "groq-sdk";
 import { scorecard } from "@/lib/content";
 import { calculateScore } from "@/lib/scoring";
 import { checkRateLimit } from "@/lib/rateLimit";
+import { renderScaledImpact } from "@/lib/impact";
 import type { ScoreResult } from "@/lib/types";
 
 const supabase = createClient(
@@ -213,12 +214,17 @@ export async function POST(req: Request) {
           priorities: result.topPriorities.map((p) => {
             const pillar = scorecard.pillars.find((pl) => pl.id === p.id)!;
             const rec = pillar.recommendations[p.tier];
+            const impactText =
+              rec.impact.type === "arrScaled"
+                ? renderScaledImpact(rec.impact.scaledLine, context?.arr) ||
+                  rec.impact.text
+                : rec.impact.text;
             return {
               name: p.name,
               score: p.percentageScore,
               title: rec.title,
               firstStep: rec.firstStep,
-              impact: rec.impact,
+              impact: impactText,
             };
           }),
         })

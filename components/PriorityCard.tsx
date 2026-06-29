@@ -1,16 +1,29 @@
 "use client";
 
 import type { PillarScore, Pillar } from "@/lib/types";
+import { renderScaledImpact } from "@/lib/impact";
 
 type Props = {
   rank: number;
   pillarScore: PillarScore;
   pillar: Pillar;
+  arr?: string;
 };
 
-export function PriorityCard({ rank, pillarScore, pillar }: Props) {
+export function PriorityCard({ rank, pillarScore, pillar, arr }: Props) {
   const recommendation = pillar.recommendations[pillarScore.tier];
   const tierColor = getTierAccentClass(pillarScore.tier);
+
+  // Resolve the impact line. Static impacts render their text directly.
+  // Scaled impacts render against the user's ARR band, falling back to the
+  // generic text if ARR is missing or unmapped.
+  const impact = recommendation.impact;
+  let impactText: string;
+  if (impact.type === "arrScaled") {
+    impactText = renderScaledImpact(impact.scaledLine, arr) || impact.text;
+  } else {
+    impactText = impact.text;
+  }
 
   return (
     <article className="surface-elevated p-8 lg:p-10">
@@ -40,7 +53,7 @@ export function PriorityCard({ rank, pillarScore, pillar }: Props) {
         <p>{recommendation.body}</p>
 
         <DetailRow label="First step" value={recommendation.firstStep} />
-        <DetailRow label="Estimated impact" value={recommendation.impact} />
+        <DetailRow label="Estimated impact" value={impactText} />
         <DetailRow label="Time to implement" value={recommendation.timeToImplement} />
       </div>
     </article>
@@ -70,3 +83,4 @@ function getTierAccentClass(tier: string): { text: string; bg: string } {
       return { text: "text-ink-700", bg: "bg-parchment-200" };
   }
 }
+

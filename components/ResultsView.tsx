@@ -227,6 +227,7 @@ export function ResultsView() {
                 rank={i + 1}
                 pillarScore={p}
                 pillar={pillar}
+                arr={submission.context?.arr}
               />
             );
           })}
