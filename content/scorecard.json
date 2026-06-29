@@ -543,21 +543,50 @@
   ],
   "grrCommentary": {
     "below_80": {
-      "unsupported": "Your reported gross revenue retention sits below 80 percent, beneath the B2B SaaS floor — SaaS Capital's 2026 benchmark puts the private-company median at 91 percent. With churn signal visibility and renewal motion both scoring low, the cause is structural rather than circumstantial: you cannot yet see churn coming, and there is no defended renewal motion to stop it. Until both move, no growth investment will compound, because revenue leaks out the bottom faster than it comes in.",
-      "supported": "Your reported gross revenue retention sits below 80 percent, beneath the B2B SaaS median of 91 percent (SaaS Capital, 2026). But your churn visibility and renewal motion both score well, which means the machinery to fix this is already in place. A number this low against strong operations usually signals a recent, specific shock — a segment churning, a pricing change, a single large loss — rather than a systemic gap. Point the operational discipline you already have at the cohort driving the number down."
+      "opening": "Your reported gross revenue retention sits below 80 percent, beneath the B2B SaaS floor — SaaS Capital's 2026 benchmark puts the private-company median at 91 percent.",
+      "clauses": {
+        "supported": "Your churn signal visibility and renewal motion both score well, which means the machinery to fix this is already in place; a number this low against strong operations usually points to a recent, specific shock — a segment churning, a pricing change, a single large loss — rather than a systemic gap.",
+        "churn_weak": "Your churn signal visibility scores low, which means you cannot yet see the churn driving this number 60 to 90 days before it lands — so accounts are being lost that earlier visibility would have surfaced in time to save.",
+        "renewal_weak": "Your renewal motion scores low, which means renewals and expansion are not yet run as a defended, proactive motion — so revenue you have already earned is leaking at the renewal point rather than being protected.",
+        "both_weak": "Your churn signal visibility and renewal motion both score low, so the cause is structural rather than circumstantial: you cannot yet see churn coming, and there is no defended renewal motion to stop it once it starts."
+      },
+      "closerSupported": "Point the operational discipline you already have at the specific cohort dragging the number down, and it should recover quickly.",
+      "closerUnsupported": "Until this is addressed, no growth investment will compound, because revenue leaks out the bottom faster than new bookings replace it — this is the first thing to fix, ahead of everything else."
     },
     "80_90": {
-      "unsupported": "Your reported GRR of 80 to 90 percent sits just below the B2B SaaS median of 91 percent (SaaS Capital, 2026). The concern is durability: with churn signal visibility and renewal motion both scoring low, this number rests on weak foundations and tends to slip rather than climb. The path to the 95 percent-plus top quartile starts with building the visibility to see churn 60 to 90 days out — not with renewal-stage saves, which arrive too late to move the number.",
-      "supported": "Your reported GRR of 80 to 90 percent sits just below the B2B SaaS median of 91 percent (SaaS Capital, 2026), but your churn visibility and renewal motion both score well — so the trajectory points up. Lifting GRR by five percentage points typically recovers five to six percent of ARR. With the operational foundation already in place, that gain is a matter of consistent execution, not new infrastructure."
+      "opening": "Your reported GRR of 80 to 90 percent sits just below the B2B SaaS median of 91 percent (SaaS Capital, 2026).",
+      "clauses": {
+        "supported": "Your churn signal visibility and renewal motion both score well, so the trajectory points up rather than down — the foundation to close the gap is already in place.",
+        "churn_weak": "The constraint is churn signal visibility, which scores low: you cannot yet see the churn that erodes this number 60 to 90 days out, so the gap to the median persists because losses are caught too late to prevent.",
+        "renewal_weak": "The constraint is your renewal motion, which scores low: renewals and expansion are not yet run as a proactive, defended motion, so revenue slips at the renewal point that a tighter motion would hold.",
+        "both_weak": "With churn signal visibility and renewal motion both scoring low, this number rests on weak foundations and tends to slip rather than climb — neither early churn detection nor a proactive renewal motion is yet defending it."
+      },
+      "closerSupported": "Lifting GRR by five points typically recovers five to six percent of ARR, and with the foundation already built, that gain is a matter of consistent execution rather than new infrastructure.",
+      "closerUnsupported": "The path to the 95 percent-plus top quartile starts with building that visibility and discipline now — lifting GRR by five points typically recovers five to six percent of ARR, which is the single highest-return move available at this level."
     },
     "90_95": {
-      "unsupported": "Your reported GRR of 90 to 95 percent is at or above the B2B SaaS median of 91 percent (SaaS Capital, 2026) — but read it with caution. Your churn signal visibility and renewal motion both score low, which means this retention is not yet operationally defended. High GRR built on weak visibility tends to revert: you are likely retaining on goodwill and inertia rather than on a repeatable system. Build the churn-detection and renewal machinery now, while the number is still healthy, rather than after it slips.",
-      "supported": "Your reported GRR of 90 to 95 percent is at or above the B2B SaaS median of 91 percent (SaaS Capital, 2026), and your churn visibility and renewal motion both score well — so this retention is operationally earned, not borrowed. The next leverage is the climb to the 95 percent-plus top quartile, which is less about preventing churn and more about systematic expansion: forecasting renewals like a pipeline and treating expansion as a tracked motion."
+      "opening": "Your reported GRR of 90 to 95 percent is at or above the B2B SaaS median of 91 percent (SaaS Capital, 2026).",
+      "clauses": {
+        "supported": "Your churn signal visibility and renewal motion both score well, so this retention is operationally earned rather than borrowed — the number reflects a system, not luck.",
+        "churn_weak": "But read it with some caution: your churn signal visibility scores low, which means you cannot yet see the churn that would erode this number 60 to 90 days out, so the retention is less defended than the figure suggests.",
+        "renewal_weak": "But read it with some caution: your renewal motion scores low, which means renewals and expansion are not yet run as a defended, proactive motion, so this number rests on weaker foundations than it appears.",
+        "both_weak": "But read it with caution: your churn signal visibility and renewal motion both score low, which means this retention is not yet operationally defended — high GRR built on weak visibility tends to revert, because you are holding on through goodwill and inertia rather than a repeatable system."
+      },
+      "closerSupported": "The next leverage is the climb to the 95 percent-plus top quartile, which is less about preventing churn and more about systematic expansion — forecasting renewals like a pipeline and treating expansion as a tracked motion.",
+      "closerUnsupported": "Build that operational defence now, while the number is still healthy, rather than after it slips — retention is far cheaper to protect than to rebuild."
     },
     "95_plus": {
-      "unsupported": "Your reported GRR of 95 percent-plus would place you in the B2B SaaS top quartile (SaaS Capital, 2026) — but your churn signal visibility and renewal motion score low, an unusual and unstable combination. Either the number reflects a young book that has not yet faced its first full renewal wave, or GRR is being measured generously. Pressure-test how it is calculated, then build the operational discipline to defend it. Top-quartile retention without top-quartile operations rarely holds beyond a few quarters.",
-      "supported": "Your reported GRR of 95 percent-plus places you in the B2B SaaS top quartile (SaaS Capital, 2026), and your operations back it up — churn visibility and renewal motion both score well. This is the strongest position in the dataset: retention this high and operationally defended is the single best predictor of durable ARR growth. The frontier from here is net revenue retention — turning that retained base into systematic expansion, where the best B2B SaaS companies reach 118 percent and above (Optifai, 2026)."
+      "opening": "Your reported GRR of 95 percent or higher would place you in the B2B SaaS top quartile (SaaS Capital, 2026).",
+      "clauses": {
+        "supported": "Your churn signal visibility and renewal motion both score well, so the number is operationally defended — this is the strongest position in the dataset, retention this high backed by the systems to hold it.",
+        "churn_weak": "But your churn signal visibility scores low, an unusual pairing with retention this strong: you cannot yet see the churn that erodes the number 60 to 90 days before it lands, so it is held more by inertia than by a system that would catch a downturn early.",
+        "renewal_weak": "But your renewal motion scores low, an unusual pairing with retention this strong: renewals and expansion are not yet run as a defended, proactive motion, so the number is more exposed than top-quartile retention should be.",
+        "both_weak": "But your churn signal visibility and renewal motion both score low, an unusual and unstable combination: either the number reflects a young book that has not yet faced its first full renewal wave, or GRR is being measured generously."
+      },
+      "closerSupported": "The frontier from here is net revenue retention — turning that retained base into systematic expansion, where the best B2B SaaS companies reach 118 percent and above (Optifai, 2026).",
+      "closerUnsupported": "Pressure-test how GRR is calculated, then build that operational defence now, while the number is healthy — top-quartile retention without the operations to support it rarely holds beyond a few quarters."
     }
   }
-}
+  }
+
 

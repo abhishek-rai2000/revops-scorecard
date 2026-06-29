@@ -9,6 +9,7 @@ import type {
   TierId,
   GrrCommentaryKey,
   GrrSupportState,
+  GrrBandCommentary,
 } from "./types";
 
 const MAX_POINTS_PER_QUESTION = 10;
@@ -88,11 +89,18 @@ export function getGrrCommentaryKey(grrResponse: string | undefined): GrrComment
 }
 
 /**
- * Determines whether the reported GRR is "operationally supported."
- * GRR durability depends on BOTH seeing churn coming (churn pillar) AND
- * running a renewal/expansion motion (renewal pillar). If either is weak
- * (below the functional threshold of 61), the reported retention rests on
- * fragile foundations and is flagged as unsupported.
+ * Classifies the reported GRR into one of four operational states based on
+ * which retention-determining pillars are weak. GRR durability depends on
+ * BOTH seeing churn coming (churn pillar) AND running a renewal/expansion
+ * motion (renewal pillar). The functional threshold is 61.
+ *
+ *   both strong            -> "supported"
+ *   churn weak only        -> "churn_weak"
+ *   renewal weak only      -> "renewal_weak"
+ *   both weak              -> "both_weak"
+ *
+ * This lets the commentary name the actual culprit precisely, so it never
+ * claims a pillar is weak when its score is high.
  */
 export function getGrrSupportState(pillarScores: PillarScore[]): GrrSupportState {
   const churn = pillarScores.find((p) => p.id === "churn");
@@ -101,7 +109,27 @@ export function getGrrSupportState(pillarScores: PillarScore[]): GrrSupportState
   const churnOk = (churn?.percentageScore ?? 0) >= 61;
   const renewalOk = (renewal?.percentageScore ?? 0) >= 61;
 
-  return churnOk && renewalOk ? "supported" : "unsupported";
+  if (churnOk && renewalOk) return "supported";
+  if (!churnOk && renewalOk) return "churn_weak";
+  if (churnOk && !renewalOk) return "renewal_weak";
+  return "both_weak";
+}
+
+/**
+ * Composes the final GRR commentary paragraph from its three parts:
+ * opening (GRR band vs benchmark) + clause (which pillar is weak and why)
+ * + closer (band-appropriate, support-aware). Returns a single coherent
+ * paragraph that reads as one expert voice.
+ */
+export function composeGrrCommentary(
+  band: GrrBandCommentary,
+  support: GrrSupportState
+): string {
+  const opening = band.opening;
+  const clause = band.clauses[support];
+  const closer =
+    support === "supported" ? band.closerSupported : band.closerUnsupported;
+  return [opening, clause, closer].filter(Boolean).join(" ");
 }
 
 export function calculateScore(
@@ -126,7 +154,7 @@ export function calculateScore(
   const grrKey = getGrrCommentaryKey(responses["q18"] as string | undefined);
   const grrSupport = getGrrSupportState(pillarScores);
   const grrCommentary = grrKey
-    ? scorecard.grrCommentary[grrKey][grrSupport]
+    ? composeGrrCommentary(scorecard.grrCommentary[grrKey], grrSupport)
     : null;
 
   return {

@@ -76,11 +76,20 @@ export type Pillar = {
 
 export type GrrCommentaryKey = "below_80" | "80_90" | "90_95" | "95_plus";
 
-export type GrrSupportState = "supported" | "unsupported";
+// Four operational states based on which retention pillars are weak.
+export type GrrSupportState =
+  | "supported"
+  | "churn_weak"
+  | "renewal_weak"
+  | "both_weak";
 
-export type GrrCommentaryEntry = {
-  supported: string;
-  unsupported: string;
+// The GRR commentary is composed at runtime from three parts:
+//   opening (per GRR band) + clause (per support state) + closer (per band, supported vs not)
+export type GrrBandCommentary = {
+  opening: string;
+  clauses: Record<GrrSupportState, string>;
+  closerSupported: string;
+  closerUnsupported: string;
 };
 
 export type Scorecard = {
@@ -95,7 +104,7 @@ export type Scorecard = {
   tiers: Tier[];
   context: ContextQuestion[];
   pillars: Pillar[];
-  grrCommentary: Record<GrrCommentaryKey, GrrCommentaryEntry>;
+  grrCommentary: Record<GrrCommentaryKey, GrrBandCommentary>;
 };
 
 export type ContextResponses = Record<string, string>;
