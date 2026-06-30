@@ -192,6 +192,14 @@ export default function FaqPage() {
               Privacy
             </Link>
             
+            <a href={siteConfig.author.portfolio}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-ember-600 transition-colors"
+          >
+            Portfolio
+          </a>
+
              <a href={`mailto:${siteConfig.contactEmail}`}
               className="hover:text-ember-600 transition-colors"
             >

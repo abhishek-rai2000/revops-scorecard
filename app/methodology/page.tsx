@@ -271,6 +271,15 @@ export default function MethodologyPage() {
             <Link href="/faq" className="hover:text-ember-600 transition-colors">
               FAQ
             </Link>
+
+              <a href={siteConfig.author.portfolio}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-ember-600 transition-colors"
+          >
+            Portfolio
+          </a>
+
             <Link href="/privacy" className="hover:text-ember-600 transition-colors">
               Privacy
             </Link>
