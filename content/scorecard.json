@@ -149,7 +149,7 @@
       "name": "Churn signal visibility",
       "shortName": "Churn",
       "weight": 0.25,
-      "description": "Whether you can see churn coming 60 to 90 days before it happens. Of all six pillars, this is the one with the clearest revenue impact. The latest benchmarks show median GRR for B2B SaaS at 90 to 92 percent — meaning 8 to 10 percent of customers leave every year. Top quartile companies achieve 95 percent or higher. The difference is almost entirely about visibility.",
+      "description": "Whether you can see churn coming 60 to 90 days before it happens. Of all six pillars, this is the one with the clearest revenue impact. B2B SaaS median gross revenue retention sits at around 90 to 92 percent (SaaS Capital, 2026; Benchmarkit, 2025) — meaning 8 to 10 percent of customers leave every year. Top quartile companies reach 95 percent or higher. The difference is almost entirely about visibility.",
       "questions": [
         {
           "id": "q1",
@@ -601,7 +601,7 @@
       "name": "Automation maturity",
       "shortName": "Automation",
       "weight": 0.15,
-      "description": "How much manual work could be automated but isn't. The latest SaaS benchmarks show ARR per FTE rising sharply — driven by automation. Manual work isn't free; it costs payroll plus error rate plus the opportunity cost of what those people could be doing instead.",
+      "description": "How much manual work could be automated but isn't. Across B2B SaaS, revenue per employee has been rising as automation absorbs repetitive operational work (industry benchmarks, 2026). Manual work isn't free; it costs payroll plus error rate plus the opportunity cost of what those people could be doing instead.",
       "questions": [
         {
           "id": "q10",
@@ -891,7 +891,7 @@
       "name": "Renewal and expansion",
       "shortName": "Renewal",
       "weight": 0.15,
-      "description": "Whether you protect renewals 60+ days out and treat expansion as a tracked motion. The latest benchmarks show that companies above $50M ARR now generate 60 percent of new ARR from existing customers. Even at $1M to $5M, expansion contributes 40 percent of new ARR.",
+      "description": "Whether you protect renewals 60+ days out and treat expansion as a tracked motion. In B2B SaaS, most net new ARR at scale now comes from existing customers rather than new logos — expansion is the dominant growth channel above roughly $50M ARR and a major one well below it (Optifai / ChartMogul, 2026).",
       "questions": [
         {
           "id": "q16",

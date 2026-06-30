@@ -20,7 +20,7 @@ const faqs: { question: string; answer: string }[] = [
   {
     question: "What is a good gross revenue retention (GRR) rate for B2B SaaS?",
     answer:
-      "A good gross revenue retention rate for B2B SaaS is around 90% or higher. The 2026 median for private B2B SaaS sits near 88–91% (SaaS Capital, 2026; Benchmarkit, 2025), with top-quartile companies reaching 92% or above. GRR is capped at 100% because it measures pure revenue leakage — how much of last year's recurring revenue you keep before any expansion. Consistently scoring below 90% usually signals a structural pricing or product-fit problem that upsells cannot mask.",
+      "A good gross revenue retention rate for B2B SaaS is around 90% or higher. The 2026 median for private B2B SaaS sits at around 90–92% (SaaS Capital, 2026; Benchmarkit, 2025), with top-quartile companies reaching 95% or above. GRR is capped at 100% because it measures pure revenue leakage — how much of last year's recurring revenue you keep before any expansion. Consistently scoring below 90% usually signals a structural pricing or product-fit problem that upsells cannot mask.",
   },
   {
     question: "What is the difference between GRR and NRR?",
@@ -199,7 +199,7 @@ export default function FaqPage() {
             <Link href="/privacy" className="hover:text-ember-600 transition-colors">
               Privacy
             </Link>
-            
+
              <a href={`mailto:${siteConfig.contactEmail}`}
               className="hover:text-ember-600 transition-colors"
             >
