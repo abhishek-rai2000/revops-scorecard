@@ -268,6 +268,9 @@ export default function MethodologyPage() {
             <Link href="/methodology" className="hover:text-ember-600 transition-colors">
               Methodology
             </Link>
+            <Link href="/faq" className="hover:text-ember-600 transition-colors">
+              FAQ
+            </Link>
             <Link href="/privacy" className="hover:text-ember-600 transition-colors">
               Privacy
             </Link>
