@@ -256,7 +256,9 @@ export function SlugResultsView({ slug }: Props) {
             <Link href="/methodology" className="hover:text-ember-600 transition-colors">
               Methodology
             </Link>
-            
+            <Link href="/faq" className="hover:text-ember-600 transition-colors">
+              FAQ
+            </Link>
              <a href={siteConfig.author.portfolio}
               target="_blank"
               rel="noopener noreferrer"
