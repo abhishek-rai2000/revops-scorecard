@@ -168,15 +168,6 @@ export default function PrivacyPage() {
       <footer className="border-t border-ink-900/10">
         <div className="max-w-canvas mx-auto px-6 lg:px-12 py-8 flex items-center justify-between">
           <p className="text-caption">RevOps Scorecard</p>
-
-          <a href={siteConfig.author.portfolio}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-ember-600 transition-colors"
-                    >
-                      Portfolio
-                    </a>
-
           <Link href="/" className="text-caption hover:text-ember-600 transition-colors">
             Back to home
           </Link>

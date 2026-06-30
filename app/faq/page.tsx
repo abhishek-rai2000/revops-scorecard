@@ -188,10 +188,7 @@ export default function FaqPage() {
             <Link href="/faq" className="hover:text-ember-600 transition-colors">
               FAQ
             </Link>
-            <Link href="/privacy" className="hover:text-ember-600 transition-colors">
-              Privacy
-            </Link>
-            
+
             <a href={siteConfig.author.portfolio}
             target="_blank"
             rel="noopener noreferrer"
@@ -199,7 +196,10 @@ export default function FaqPage() {
           >
             Portfolio
           </a>
-
+            <Link href="/privacy" className="hover:text-ember-600 transition-colors">
+              Privacy
+            </Link>
+            
              <a href={`mailto:${siteConfig.contactEmail}`}
               className="hover:text-ember-600 transition-colors"
             >
