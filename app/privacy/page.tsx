@@ -11,7 +11,7 @@ export default function PrivacyPage() {
     <main className="min-h-screen bg-parchment-100">
       <header className="px-6 lg:px-12 py-6 max-w-canvas mx-auto">
         <Link href="/" className="inline-flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full" style={{ background: "#0D6B5E" }} aria-hidden />
+          <div className="w-2.5 h-2.5 rounded-full bg-ember-800" aria-hidden />
           <span className="font-display text-lg tracking-tight text-ink-900">
             RevOps Scorecard
           </span>
@@ -31,9 +31,10 @@ export default function PrivacyPage() {
             <h2 className="font-display text-xl text-ink-900 mb-3">What this is</h2>
             <p>
               RevOps Health Scorecard is a free diagnostic tool for B2B SaaS
-              operations leaders. It asks 22 questions and returns a personalised
-              report. This policy explains what data we collect when you use it
-              and how we handle it.
+              operations leaders. It asks 18 diagnostic questions plus a few
+              questions about your company, and returns a personalised report.
+              This policy explains what data we collect when you use it and how
+              we handle it.
             </p>
           </div>
 
@@ -78,9 +79,9 @@ export default function PrivacyPage() {
           <div>
             <h2 className="font-display text-xl text-ink-900 mb-3">Where it is stored</h2>
             <p>
-              Your submission data is stored in a secured database hosted on
-              AWS. Access is restricted — your data is never directly
-              accessible from the browser. 
+              Your submission data is stored in a secured Supabase database.
+              Access is restricted — your data is never directly accessible from
+              the browser.
             </p>
           </div>
 
@@ -103,7 +104,7 @@ export default function PrivacyPage() {
                 <strong className="text-ink-900">Groq</strong> — AI narrative
                 generation. Your score, tier, stage, ARR, and GTM motion are
                 passed to the Groq API to generate your personalised
-                {"consultant's"} read. No personally identifiable information
+                {" consultant's "} read. No personally identifiable information
                 (name or email) is sent to Groq.
               </li>
               <li>
@@ -135,8 +136,8 @@ export default function PrivacyPage() {
             <p>
               You can request a copy of your data, correction of inaccurate
               data, or deletion of your data at any time by emailing{" "}
-              <a
-                href="mailto:abhishek.k0420@gmail.com"
+              
+               <a href="mailto:abhishek.k0420@gmail.com"
                 className="text-ember-600 hover:underline"
               >
                 abhishek.k0420@gmail.com
@@ -150,8 +151,8 @@ export default function PrivacyPage() {
             <p>
               This tool is operated by Abhishek Rai. For any questions about
               this policy or your data, contact{" "}
-              <a
-                href="mailto:abhishek.k0420@gmail.com"
+              
+               <a href="mailto:abhishek.k0420@gmail.com"
                 className="text-ember-600 hover:underline"
               >
                 abhishek.k0420@gmail.com
