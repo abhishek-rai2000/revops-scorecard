@@ -142,6 +142,28 @@ export default function FaqPage() {
             </div>
           ))}
         </div>
+        </section>
+
+      <SectionRule />
+
+      {/* Related guide */}
+      <section className="px-6 lg:px-12 max-w-narrow mx-auto py-10">
+        <p className="text-eyebrow mb-4">Go deeper</p>
+        <Link
+          href="/guides/improve-gross-revenue-retention"
+          className="group block rounded-lg border border-ink-900/10 bg-parchment-200/40 p-6 hover:border-ember-600/40 hover:bg-parchment-200/60 transition-all"
+        >
+          <p className="font-display text-lg text-ink-900 mb-1 group-hover:text-ember-700 transition-colors">
+            How to improve gross revenue retention in B2B SaaS
+            <span aria-hidden className="inline-block ml-1 transition-transform group-hover:translate-x-0.5">
+              →
+            </span>
+          </p>
+          <p className="text-ink-600 text-[15px] leading-relaxed">
+            The full guide: what GRR is, where the 2026 benchmarks sit, and the
+            five highest-leverage levers to reduce revenue leakage.
+          </p>
+        </Link>
       </section>
 
       <SectionRule />
