@@ -15,12 +15,22 @@ export const metadata: Metadata = {
       "What good GRR and NRR look like in 2026, how they differ, how to measure RevOps health, and how to reduce churn — with named, dated sources.",
     url: "/faq",
     type: "website",
+    siteName: "RevOps Scorecard",
+    images: [
+      {
+        url: `${siteConfig.url}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "RevOps Health Scorecard — How healthy is your revenue operations really?",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "B2B SaaS Revenue Retention FAQ | GRR, NRR & RevOps Benchmarks",
     description:
       "What good GRR and NRR look like in 2026, how they differ, how to measure RevOps health, and how to reduce churn — with named, dated sources.",
+    images: [`${siteConfig.url}/og-image.png`],
   },
 };
 

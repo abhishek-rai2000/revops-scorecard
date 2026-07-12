@@ -20,12 +20,22 @@ export const metadata: Metadata = {
       "What GRR is, where the 2026 benchmarks sit by segment, and the five highest-leverage levers to reduce revenue leakage.",
     url: SLUG,
     type: "article",
+    siteName: "RevOps Scorecard",
+    images: [
+      {
+        url: `${siteConfig.url}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "RevOps Health Scorecard — How healthy is your revenue operations really?",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "How to Improve Gross Revenue Retention in B2B SaaS (2026 Guide)",
     description:
       "What GRR is, where the 2026 benchmarks sit by segment, and the five highest-leverage levers to reduce revenue leakage.",
+    images: [`${siteConfig.url}/og-image.png`],
   },
 };
 
