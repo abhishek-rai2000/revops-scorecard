@@ -14,6 +14,19 @@ export const metadata: Metadata = {
   description:
     "A practical 2026 guide to improving gross revenue retention (GRR) in B2B SaaS: what GRR is, how to calculate it, current benchmarks by segment, and the five highest-leverage levers to reduce revenue leakage.",
   alternates: { canonical: SLUG },
+  openGraph: {
+    title: "How to Improve Gross Revenue Retention in B2B SaaS (2026 Guide)",
+    description:
+      "What GRR is, where the 2026 benchmarks sit by segment, and the five highest-leverage levers to reduce revenue leakage.",
+    url: SLUG,
+    type: "article",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How to Improve Gross Revenue Retention in B2B SaaS (2026 Guide)",
+    description:
+      "What GRR is, where the 2026 benchmarks sit by segment, and the five highest-leverage levers to reduce revenue leakage.",
+  },
 };
 
 /**

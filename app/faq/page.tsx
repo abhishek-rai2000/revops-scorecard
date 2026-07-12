@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   description:
     "Answer-first explanations of B2B SaaS revenue operations metrics: what good GRR and NRR look like in 2026, the difference between them, how to measure RevOps health, and how to reduce churn.",
   alternates: { canonical: "/faq" },
+  openGraph: {
+    title: "B2B SaaS Revenue Retention FAQ | GRR, NRR & RevOps Benchmarks",
+    description:
+      "What good GRR and NRR look like in 2026, how they differ, how to measure RevOps health, and how to reduce churn — with named, dated sources.",
+    url: "/faq",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "B2B SaaS Revenue Retention FAQ | GRR, NRR & RevOps Benchmarks",
+    description:
+      "What good GRR and NRR look like in 2026, how they differ, how to measure RevOps health, and how to reduce churn — with named, dated sources.",
+  },
 };
 
 /**
